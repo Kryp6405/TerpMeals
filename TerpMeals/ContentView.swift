@@ -7,15 +7,69 @@
 
 import SwiftUI
 
-struct ContentView: View {
+
+struct HomeView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Text("Welcome [User]!")
+                .font(.largeTitle)
+                .bold()
+            Text("This is the First View")
         }
         .padding()
+    }
+}
+
+struct SecondView: View {
+    var body: some View {
+        VStack {
+            Text("This is the Second View")
+        }
+        .padding()
+    }
+}
+
+struct ThirdView: View {
+    var body: some View {
+        VStack {
+            Text("This is the Third View")
+        }
+        .padding()
+    }
+}
+
+struct ContentView: View {
+    @State private var selectedTab = 1
+    
+    var body: some View {
+        TabView(selection: $selectedTab){
+            NavigationView {
+                HomeView()
+                    .navigationTitle("First View")
+            }
+            .tabItem {
+                Label("Home", systemImage: "house")
+            }
+            .tag(1)
+            
+            NavigationView {
+                SecondView()
+                    .navigationTitle("Second View")
+            }
+            .tabItem {
+                Label("Second", systemImage: "plus")
+            }
+            .tag(2)
+            
+            NavigationView {
+                ThirdView()
+                    .navigationTitle("Third View")
+            }
+            .tabItem {
+                Label("Third", systemImage: "person")
+            }
+            .tag(3)
+        }
     }
 }
 

@@ -11,7 +11,7 @@ import SwiftUI
 struct TerpMealsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashScreen()
         }
     }
 }
