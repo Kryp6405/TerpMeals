@@ -8,10 +8,58 @@
 import SwiftUI
 
 struct SignUp: View {
-    @State private var fullName: String = ""
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
+    @State private var val: String = ""
+    @State private var clickedSignIn: Bool = false
+    @State private var clickedSignUp: Bool = false
+    
+    var body: some View {
+        if(clickedSignIn){
+            SignIn()
+        } else if(clickedSignUp) {
+          HomeView()
+        } else {
+            VStack {
+                HeaderView()
+                
+                Spacer()
+                
+                VStack {
+                    Spacer()
+                    
+                    InputView(clickedSignUp: $clickedSignUp)
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Text("Already have an account?")
+                        Button(action: {
+                            clickedSignIn = true
+                        }) {
+                            Text("Sign in")
+                                .foregroundColor(.red)
+                        }
+                    }
+                    .padding(.bottom, 20)
+                }
+                .background(.gray.opacity(0.10))
+            }
+        }
+    }
+}
+
+struct InputView: View {
+    @Binding var clickedSignUp: Bool
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
+    @State private var gender: String = "Select Gender"
+    @State private var age: Int = 18
+    @State private var weight: Double = 0.0
+    @State private var weightUnit: String = "lbs"
+    @State private var heightFeet: Int = 5
+    @State private var heightInches: Int = 8
+    @State private var heightCm: Double = 0.0
+    @State private var preferredDiningHall: String = "Select Dining Hall"
+    @State private var useImperial: Bool = true
     
     var body: some View {
         VStack {
@@ -34,7 +82,7 @@ struct SignUp: View {
                 Text("FULL NAME")
                     .font(.caption)
                     .foregroundColor(.gray)
-                TextField("John Williams", text: $fullName)
+                TextField("John Williams", text: $firstName)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
@@ -43,7 +91,7 @@ struct SignUp: View {
                 Text("EMAIL")
                     .font(.caption)
                     .foregroundColor(.gray)
-                TextField("email@example.com", text: $email)
+                TextField("email@example.com", text: $lastName)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
@@ -52,7 +100,7 @@ struct SignUp: View {
                 Text("PASSWORD")
                     .font(.caption)
                     .foregroundColor(.gray)
-                SecureField("Password", text: $password)
+                SecureField("Password", text: $firstName)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
@@ -61,7 +109,7 @@ struct SignUp: View {
                 Text("CONFIRM PASSWORD")
                     .font(.caption)
                     .foregroundColor(.gray)
-                SecureField("Confirm Password", text: $confirmPassword)
+                SecureField("Confirm Password", text: $lastName)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
@@ -71,7 +119,7 @@ struct SignUp: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    // Sign Up action
+                    clickedSignUp = true
                 }) {
                     HStack {
                         Text("Sign Up")
@@ -87,21 +135,12 @@ struct SignUp: View {
             }
             .padding(.horizontal)
             .padding(.top, 20)
-            
-            Spacer()
-            
-            HStack {
-                Text("Already have an account?")
-                Button(action: {
-                    // Navigate to sign in
-                }) {
-                    Text("Sign in")
-                        .foregroundColor(.red)
-                }
-            }
-            .padding(.bottom, 20)
         }
+        .padding(.vertical, 30)
         .background(Color.white)
+        .cornerRadius(15)
+        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+        .padding(.horizontal, 20)
     }
 }
 

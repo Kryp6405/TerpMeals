@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		808E5D022C27F0A300202077 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D012C27F0A300202077 /* FirebaseAuth */; };
+		808E5D042C27F0C000202077 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D032C27F0C000202077 /* GoogleSignIn */; };
+		808E5D062C27F0C000202077 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D052C27F0C000202077 /* GoogleSignInSwift */; };
+		809D33082C27FAC000E37C34 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D33072C27FAC000E37C34 /* HeaderView.swift */; };
 		809F67502C22808F004F11C5 /* TerpMealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F674F2C22808F004F11C5 /* TerpMealsApp.swift */; };
 		809F67522C22808F004F11C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F67512C22808F004F11C5 /* ContentView.swift */; };
 		809F67542C228090004F11C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 809F67532C228090004F11C5 /* Assets.xcassets */; };
@@ -17,9 +21,6 @@
 		809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F67792C2282A9004F11C5 /* SplashScreen.swift */; };
 		80A04B512C2366540049F1A3 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A04B502C2366540049F1A3 /* SignIn.swift */; };
 		80A04B532C2366680049F1A3 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A04B522C2366680049F1A3 /* SignUp.swift */; };
-		80A04B562C236D500049F1A3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 80A04B552C236D500049F1A3 /* FirebaseAuth */; };
-		80A04B592C236DBF0049F1A3 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 80A04B582C236DBF0049F1A3 /* GoogleSignIn */; };
-		80A04B5B2C236DBF0049F1A3 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80A04B5A2C236DBF0049F1A3 /* GoogleSignInSwift */; };
 		80A04B602C2372F20049F1A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80A04B5F2C2372F20049F1A3 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		809D33072C27FAC000E37C34 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		809F674C2C22808F004F11C5 /* TerpMeals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TerpMeals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		809F674F2C22808F004F11C5 /* TerpMealsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerpMealsApp.swift; sourceTree = "<group>"; };
 		809F67512C22808F004F11C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,9 +65,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80A04B5B2C236DBF0049F1A3 /* GoogleSignInSwift in Frameworks */,
-				80A04B562C236D500049F1A3 /* FirebaseAuth in Frameworks */,
-				80A04B592C236DBF0049F1A3 /* GoogleSignIn in Frameworks */,
+				808E5D062C27F0C000202077 /* GoogleSignInSwift in Frameworks */,
+				808E5D022C27F0A300202077 /* FirebaseAuth in Frameworks */,
+				808E5D042C27F0C000202077 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +117,7 @@
 				809F67512C22808F004F11C5 /* ContentView.swift */,
 				809F67792C2282A9004F11C5 /* SplashScreen.swift */,
 				80A04B502C2366540049F1A3 /* SignIn.swift */,
+				809D33072C27FAC000E37C34 /* HeaderView.swift */,
 				80A04B522C2366680049F1A3 /* SignUp.swift */,
 				809F67532C228090004F11C5 /* Assets.xcassets */,
 				809F67552C228090004F11C5 /* Preview Content */,
@@ -164,9 +167,9 @@
 			);
 			name = TerpMeals;
 			packageProductDependencies = (
-				80A04B552C236D500049F1A3 /* FirebaseAuth */,
-				80A04B582C236DBF0049F1A3 /* GoogleSignIn */,
-				80A04B5A2C236DBF0049F1A3 /* GoogleSignInSwift */,
+				808E5D012C27F0A300202077 /* FirebaseAuth */,
+				808E5D032C27F0C000202077 /* GoogleSignIn */,
+				808E5D052C27F0C000202077 /* GoogleSignInSwift */,
 			);
 			productName = TerpMeals;
 			productReference = 809F674C2C22808F004F11C5 /* TerpMeals.app */;
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */,
+				809D33082C27FAC000E37C34 /* HeaderView.swift in Sources */,
 				809F67522C22808F004F11C5 /* ContentView.swift in Sources */,
 				809F67502C22808F004F11C5 /* TerpMealsApp.swift in Sources */,
 				80A04B512C2366540049F1A3 /* SignIn.swift in Sources */,
@@ -455,6 +459,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TerpMeals/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -486,6 +491,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TerpMeals/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -641,17 +647,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		80A04B552C236D500049F1A3 /* FirebaseAuth */ = {
+		808E5D012C27F0A300202077 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 80A04B542C236D500049F1A3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		80A04B582C236DBF0049F1A3 /* GoogleSignIn */ = {
+		808E5D032C27F0C000202077 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80A04B572C236DBF0049F1A3 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
 		};
-		80A04B5A2C236DBF0049F1A3 /* GoogleSignInSwift */ = {
+		808E5D052C27F0C000202077 /* GoogleSignInSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80A04B572C236DBF0049F1A3 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;

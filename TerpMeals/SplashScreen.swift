@@ -14,7 +14,7 @@ struct SplashScreen: View {
 
     var body: some View {
         if isActive {
-            ContentView()
+            SignIn()
         } else {
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [Color.white, Color.gray.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
@@ -57,7 +57,7 @@ struct SplashScreen: View {
     func animateText() {
         let totalSteps = Array("TerpMeals").count
         for step in 0..<totalSteps {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(step) * 0.2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(step) * 0.13) {
                 withAnimation(.easeIn(duration: 0.2).delay(1)) {
                     self.textAnimationStep = step + 1
                 }
