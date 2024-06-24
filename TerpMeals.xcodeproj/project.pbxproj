@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		808D24A92C290DAD00E44B2E /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808D24A82C290DAD00E44B2E /* ProfileInfo.swift */; };
 		808E5D022C27F0A300202077 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D012C27F0A300202077 /* FirebaseAuth */; };
 		808E5D042C27F0C000202077 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D032C27F0C000202077 /* GoogleSignIn */; };
 		808E5D062C27F0C000202077 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D052C27F0C000202077 /* GoogleSignInSwift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		808D24A82C290DAD00E44B2E /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
 		809D33072C27FAC000E37C34 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		809F674C2C22808F004F11C5 /* TerpMeals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TerpMeals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		809F674F2C22808F004F11C5 /* TerpMealsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerpMealsApp.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				80A04B502C2366540049F1A3 /* SignIn.swift */,
 				809D33072C27FAC000E37C34 /* HeaderView.swift */,
 				80A04B522C2366680049F1A3 /* SignUp.swift */,
+				808D24A82C290DAD00E44B2E /* ProfileInfo.swift */,
 				809F67532C228090004F11C5 /* Assets.xcassets */,
 				809F67552C228090004F11C5 /* Preview Content */,
 			);
@@ -290,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				808D24A92C290DAD00E44B2E /* ProfileInfo.swift in Sources */,
 				809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */,
 				809D33082C27FAC000E37C34 /* HeaderView.swift in Sources */,
 				809F67522C22808F004F11C5 /* ContentView.swift in Sources */,

@@ -25,8 +25,8 @@ struct SignUp: View {
                 VStack {
                     Spacer()
                     
-                    InputView(clickedSignUp: $clickedSignUp)
-                    //SelectProfileView()
+                    //InputView(clickedSignUp: $clickedSignUp)
+                    SelectProfileView(clickedSignUp: $clickedSignUp)
                     
                     Spacer()
                     
@@ -48,18 +48,42 @@ struct SignUp: View {
 }
 
 struct SelectProfileView: View {
+    @Binding var clickedSignUp: Bool
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
+    @State private var gender: String = "Select Gender"
+    @State private var age: Int = 18
+    @State private var weight: Double = 0.0
+    @State private var weightUnit: String = "lbs"
+    @State private var heightFeet: Int = 5
+    @State private var heightInches: Int = 8
+    @State private var heightCm: Double = 0.0
+    @State private var preferredDiningHall: String = "Select Dining Hall"
+    @State private var useImperial: Bool = true
+    @State private var nextView = -1
     @State var selected_img: PhotosPickerItem? = nil
     @State var selected_img_data: Data? = nil
-    @State var profile_progress = 0
-    
-    func UIImageConverter(data: Data?) -> UIImage?{
-        return UIImage(data: data!)
-    }
+    @State var profile_progress:CGFloat = 0
     
     var body: some View {
         VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Sign Up")
+                        .bold()
+                        .font(.largeTitle)
+                        .padding(.bottom,5)
+                    Text("Please select a profile picture.")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 50)
+            
             PhotosPicker(selection: $selected_img) {
-                if(UIImageConverter(data: selected_img_data) == nil) {
+                if(selected_img_data == nil) {
                     ZStack {
                         Circle()
                             .stroke(lineWidth: 5)
@@ -76,10 +100,11 @@ struct SelectProfileView: View {
                     .frame(width: 150, height: 150)
                 } else {
                     ZStack {
-                        Image(uiImage: UIImageConverter(data: selected_img_data)!)
+                        Image(uiImage: UIImage(data: selected_img_data!)!)
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(width: 150, height: 150)
+                            .clipShape(Circle())
                         Circle()
                             .trim(from: 0, to: CGFloat(profile_progress))
                             .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
@@ -90,8 +115,88 @@ struct SelectProfileView: View {
                     }
                     .frame(width: 150, height: 150)
                 }
+            }.onChange(of: selected_img) {
+                newItem in Task {
+                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                        selected_img_data = data
+                        if(profile_progress == 0) {
+                            profile_progress += 0.2
+                            nextView += 1
+                        }
+                    }
+                }
             }
-            Text("Hello Worldasfafasdfasdfasfsasdfsadfsadfaasdfasdfs")
+            .padding(.bottom, 50)
+            .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            
+            switch(nextView){
+                case 0:
+                    TextField("First Name", text: $firstName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 30)
+                case 1:
+                    TextField("Last Name", text: $lastName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 30)
+                case 2:
+                    HStack {
+                        TextField("Age", value: $age, formatter: NumberFormatter())
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Spacer()
+                        Picker(selection: $gender, label: Text("Gender")) {
+                            Text("Select Gender").tag("Select Gender")
+                            Text("Male").tag("Male")
+                            Text("Female").tag("Female")
+                            Text("Other").tag("Other")
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 30)
+                case 3:
+                    HStack {
+                        TextField("Weight", value: $weight, formatter: NumberFormatter())
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Picker("Unit", selection: $weightUnit) {
+                            Text("lbs").tag("lbs")
+                            Text("kg").tag("kg")
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 30)
+                default:
+                    EmptyView()
+            }
+            
+            HStack {
+                Button(action: {
+                    if nextView > 0 { nextView -= 1; profile_progress -= 0.2}
+                }) {
+                    Image(systemName: "arrow.left")
+                        .font(.system(size: 25))
+                        .padding(10)
+                        .foregroundColor(.white)
+                        .background(.black)
+                        .cornerRadius(10)
+                        .shadow(radius: 3)
+                }
+                Button(action: {
+                    if nextView < 7 { nextView += 1; profile_progress += 0.2}
+                }) {
+                    Text("Next")
+                        .font(.system(size: 20))
+                        .padding(10)
+                        .foregroundColor(.white)
+                        .background(.black)
+                        .cornerRadius(10)
+                        .shadow(radius: 3)
+                }
+                
+            }
         }
         .padding()
         .background(Color.white)
