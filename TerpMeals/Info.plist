@@ -7,11 +7,15 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Google Sign In</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.845662216010-bb4a13i15db6bm7u13jt8ipkpheknvec</string>
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>845662216010-bb4a13i15db6bm7u13jt8ipkpheknvec.apps.googleusercontent.com</string>
 </dict>
 </plist>

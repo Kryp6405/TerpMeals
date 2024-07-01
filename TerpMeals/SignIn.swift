@@ -6,10 +6,40 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import GoogleSignInSwift
+import FirebaseAuth
+
+struct GoogleSignInResultModel {
+    let idToken: String
+    let accessToken: String
+}
+
+@MainActor
+final class SignInModel: ObservableObject{
+    
+    func signInGoogle() async throws {
+        
+        guard let topVC = Utilities.shared.topViewController() else {
+            throw URLError(.cannotFindHost)
+        }
+        
+        let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
+        
+        guard let idToken = gidSignInResult.user.idToken?.tokenString else {
+            throw URLError(.badServerResponse)
+        }
+        let accessToken: String = gidSignInResult.user.accessToken.tokenString
+        
+        let tokens = GoogleSignInResultModel(idToken: idToken, accessToken: accessToken)
+        try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+    }
+}
 
 struct SignIn: View {
     @State private var clickedSignUp: Bool = false
     @State private var openHome: Bool = false
+    @State private var showSignInView: Bool = true
     
     var body: some View {
         if(clickedSignUp){
@@ -23,7 +53,7 @@ struct SignIn: View {
                 VStack {
                     Spacer()
                     
-                    OptionsView(openHome: $openHome)
+                    OptionsView(openHome: $openHome, showSignInView: $showSignInView)
                     
                     Spacer()
                     
@@ -94,6 +124,8 @@ struct SignIn: View {
 
 struct OptionsView: View {
     @Binding var openHome: Bool
+    @StateObject private var viewModel = SignInModel()
+    @Binding var showSignInView: Bool
     
     var body: some View {
         VStack {
@@ -132,7 +164,15 @@ struct OptionsView: View {
                 }
                 
                 Button(action: {
-                    // Google Sign-in action
+                    // Google Sign-In Action
+                    Task {
+                        do {
+                            try await viewModel.signInGoogle()
+                            showSignInView = false
+                        } catch {
+                            print(error)
+                        }
+                    }
                 }) {
                     HStack {
                         Image("Google") // Google logo placeholder

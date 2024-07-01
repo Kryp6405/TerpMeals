@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		808D24A92C290DAD00E44B2E /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808D24A82C290DAD00E44B2E /* ProfileInfo.swift */; };
-		808E5D022C27F0A300202077 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D012C27F0A300202077 /* FirebaseAuth */; };
-		808E5D042C27F0C000202077 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D032C27F0C000202077 /* GoogleSignIn */; };
-		808E5D062C27F0C000202077 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 808E5D052C27F0C000202077 /* GoogleSignInSwift */; };
 		809D33082C27FAC000E37C34 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D33072C27FAC000E37C34 /* HeaderView.swift */; };
 		809F67502C22808F004F11C5 /* TerpMealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F674F2C22808F004F11C5 /* TerpMealsApp.swift */; };
 		809F67522C22808F004F11C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F67512C22808F004F11C5 /* ContentView.swift */; };
@@ -22,7 +19,12 @@
 		809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F67792C2282A9004F11C5 /* SplashScreen.swift */; };
 		80A04B512C2366540049F1A3 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A04B502C2366540049F1A3 /* SignIn.swift */; };
 		80A04B532C2366680049F1A3 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A04B522C2366680049F1A3 /* SignUp.swift */; };
-		80A04B602C2372F20049F1A3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80A04B5F2C2372F20049F1A3 /* GoogleService-Info.plist */; };
+		EC42F4CE2C33257C0020A4E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC42F4CD2C33257C0020A4E1 /* GoogleService-Info.plist */; };
+		EC42F4D02C333DFD0020A4E1 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC42F4CF2C333DFD0020A4E1 /* AuthenticationManager.swift */; };
+		EC42F4D52C3342200020A4E1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC42F4D42C3342200020A4E1 /* Utilities.swift */; };
+		ECA971BE2C3236D8000AD049 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ECA971BD2C3236D8000AD049 /* FirebaseAuth */; };
+		ECA971C02C3236DF000AD049 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = ECA971BF2C3236DF000AD049 /* GoogleSignIn */; };
+		ECA971C22C3236E6000AD049 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ECA971C12C3236E6000AD049 /* GoogleSignInSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +61,9 @@
 		80A04B502C2366540049F1A3 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		80A04B522C2366680049F1A3 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		80A04B5E2C2372700049F1A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		80A04B5F2C2372F20049F1A3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EC42F4CD2C33257C0020A4E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EC42F4CF2C333DFD0020A4E1 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		EC42F4D42C3342200020A4E1 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				808E5D062C27F0C000202077 /* GoogleSignInSwift in Frameworks */,
-				808E5D022C27F0A300202077 /* FirebaseAuth in Frameworks */,
-				808E5D042C27F0C000202077 /* GoogleSignIn in Frameworks */,
+				ECA971C22C3236E6000AD049 /* GoogleSignInSwift in Frameworks */,
+				ECA971BE2C3236D8000AD049 /* FirebaseAuth in Frameworks */,
+				ECA971C02C3236DF000AD049 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +101,7 @@
 				809F675F2C228090004F11C5 /* TerpMealsTests */,
 				809F67692C228090004F11C5 /* TerpMealsUITests */,
 				809F674D2C22808F004F11C5 /* Products */,
+				ECA971BC2C3236D8000AD049 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,10 +118,12 @@
 		809F674E2C22808F004F11C5 /* TerpMeals */ = {
 			isa = PBXGroup;
 			children = (
+				EC42F4CD2C33257C0020A4E1 /* GoogleService-Info.plist */,
 				80A04B5E2C2372700049F1A3 /* Info.plist */,
-				80A04B5F2C2372F20049F1A3 /* GoogleService-Info.plist */,
-				809F674F2C22808F004F11C5 /* TerpMealsApp.swift */,
+				EC42F4D32C3341EA0020A4E1 /* Utilities */,
+				EC42F4D12C3341C40020A4E1 /* Authentication */,
 				809F67512C22808F004F11C5 /* ContentView.swift */,
+				809F674F2C22808F004F11C5 /* TerpMealsApp.swift */,
 				809F67792C2282A9004F11C5 /* SplashScreen.swift */,
 				80A04B502C2366540049F1A3 /* SignIn.swift */,
 				809D33072C27FAC000E37C34 /* HeaderView.swift */,
@@ -153,6 +160,29 @@
 			path = TerpMealsUITests;
 			sourceTree = "<group>";
 		};
+		EC42F4D12C3341C40020A4E1 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				EC42F4CF2C333DFD0020A4E1 /* AuthenticationManager.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		EC42F4D32C3341EA0020A4E1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				EC42F4D42C3342200020A4E1 /* Utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		ECA971BC2C3236D8000AD049 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -170,9 +200,9 @@
 			);
 			name = TerpMeals;
 			packageProductDependencies = (
-				808E5D012C27F0A300202077 /* FirebaseAuth */,
-				808E5D032C27F0C000202077 /* GoogleSignIn */,
-				808E5D052C27F0C000202077 /* GoogleSignInSwift */,
+				ECA971BD2C3236D8000AD049 /* FirebaseAuth */,
+				ECA971BF2C3236DF000AD049 /* GoogleSignIn */,
+				ECA971C12C3236E6000AD049 /* GoogleSignInSwift */,
 			);
 			productName = TerpMeals;
 			productReference = 809F674C2C22808F004F11C5 /* TerpMeals.app */;
@@ -268,7 +298,7 @@
 			files = (
 				809F67572C228090004F11C5 /* Preview Assets.xcassets in Resources */,
 				809F67542C228090004F11C5 /* Assets.xcassets in Resources */,
-				80A04B602C2372F20049F1A3 /* GoogleService-Info.plist in Resources */,
+				EC42F4CE2C33257C0020A4E1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,10 +324,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				808D24A92C290DAD00E44B2E /* ProfileInfo.swift in Sources */,
+				EC42F4D02C333DFD0020A4E1 /* AuthenticationManager.swift in Sources */,
 				809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */,
 				809D33082C27FAC000E37C34 /* HeaderView.swift in Sources */,
 				809F67522C22808F004F11C5 /* ContentView.swift in Sources */,
 				809F67502C22808F004F11C5 /* TerpMealsApp.swift in Sources */,
+				EC42F4D52C3342200020A4E1 /* Utilities.swift in Sources */,
 				80A04B512C2366540049F1A3 /* SignIn.swift in Sources */,
 				80A04B532C2366680049F1A3 /* SignUp.swift in Sources */,
 			);
@@ -651,16 +683,17 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		808E5D012C27F0A300202077 /* FirebaseAuth */ = {
+		ECA971BD2C3236D8000AD049 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 80A04B542C236D500049F1A3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		808E5D032C27F0C000202077 /* GoogleSignIn */ = {
+		ECA971BF2C3236DF000AD049 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80A04B572C236DBF0049F1A3 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
 		};
-		808E5D052C27F0C000202077 /* GoogleSignInSwift */ = {
+		ECA971C12C3236E6000AD049 /* GoogleSignInSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80A04B572C236DBF0049F1A3 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
