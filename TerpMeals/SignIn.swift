@@ -4,8 +4,12 @@
 //
 //  Created by krisnajit Rajeshkhanna on 6/19/24.
 //
-
+import AuthenticationServices
 import SwiftUI
+
+//@objc func didTapSignIn(){
+//
+//}
 
 struct SignIn: View {
     @State private var clickedSignUp: Bool = false
@@ -150,21 +154,36 @@ struct OptionsView: View {
                     .shadow(radius: 3)
                 }
                 
-                Button(action: {
-                    // Apple Sign-in action
-                }) {
-                    HStack {
-                        Image(systemName: "applelogo") // Apple logo placeholder
-                        Text("Sign in with Apple")
-                            .fontWeight(.bold)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.black)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .shadow(radius: 3)
-                }
+//                Button(action: {
+//                    // Apple Sign-in action
+//                }) {
+//                    HStack {
+//                        Image(systemName: "applelogo") // Apple logo placeholder
+//                        Text("Sign in with Apple")
+//                            .fontWeight(.bold)
+//                    }
+//                    .frame(maxWidth: .infinity)
+//                    .padding()
+//                    .background(Color.black)
+//                    .foregroundColor(.white)
+//                    .cornerRadius(10)
+//                    .shadow(radius: 3)
+//                }
+                
+                SignInWithAppleButton(.signIn, onRequest: { request in
+                                    request.requestedScopes = [.fullName, .email]
+                                }, onCompletion: { result in
+                                    switch result {
+                                    case .success(let authorization):
+                                        handleAuthorization(authorization)
+                                    case .failure(let error):
+                                        print("Sign in with Apple failed: \(error.localizedDescription)")
+                                    }
+                                })
+                                .signInWithAppleButtonStyle(.black)
+                                .frame(height: 45)
+                                .cornerRadius(10)
+                                .shadow(radius: 3)
             }
             .padding(.horizontal,30)
             
@@ -196,6 +215,23 @@ struct OptionsView: View {
         .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
         .padding(.horizontal, 20)
     }
+    
+    private func handleAuthorization(_ authorization: ASAuthorization) {
+            if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+                let userIdentifier = appleIDCredential.user
+                let fullName = appleIDCredential.fullName
+                let email = appleIDCredential.email
+                
+                // Handle the authenticated user's information here
+                // For example, you can save the userIdentifier to UserDefaults or your keychain
+                
+                print("User ID: \(userIdentifier)")
+                print("Full Name: \(String(describing: fullName))")
+                print("Email: \(String(describing: email))")
+            }
+        }
+    
+    
 }
 
 #Preview {
