@@ -169,6 +169,7 @@ struct OptionsView: View {
                         do {
                             try await viewModel.signInGoogle()
                             showSignInView = false
+                            openHome = true
                         } catch {
                             print(error)
                         }
