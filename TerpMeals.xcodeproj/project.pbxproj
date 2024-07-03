@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C9A8A572C35B30100BAED42 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C9A8A562C35B30100BAED42 /* GoogleService-Info.plist */; };
 		808D24A92C290DAD00E44B2E /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808D24A82C290DAD00E44B2E /* ProfileInfo.swift */; };
 		809D33082C27FAC000E37C34 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D33072C27FAC000E37C34 /* HeaderView.swift */; };
 		809F67502C22808F004F11C5 /* TerpMealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F674F2C22808F004F11C5 /* TerpMealsApp.swift */; };
@@ -19,7 +20,6 @@
 		809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F67792C2282A9004F11C5 /* SplashScreen.swift */; };
 		80A04B512C2366540049F1A3 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A04B502C2366540049F1A3 /* SignIn.swift */; };
 		80A04B532C2366680049F1A3 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A04B522C2366680049F1A3 /* SignUp.swift */; };
-		EC42F4CE2C33257C0020A4E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC42F4CD2C33257C0020A4E1 /* GoogleService-Info.plist */; };
 		EC42F4D02C333DFD0020A4E1 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC42F4CF2C333DFD0020A4E1 /* AuthenticationManager.swift */; };
 		EC42F4D52C3342200020A4E1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC42F4D42C3342200020A4E1 /* Utilities.swift */; };
 		ECA971BE2C3236D8000AD049 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ECA971BD2C3236D8000AD049 /* FirebaseAuth */; };
@@ -45,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C9A8A562C35B30100BAED42 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "TerpMeals/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		808D24A82C290DAD00E44B2E /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
 		809D33072C27FAC000E37C34 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		809F674C2C22808F004F11C5 /* TerpMeals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TerpMeals.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +62,6 @@
 		80A04B502C2366540049F1A3 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		80A04B522C2366680049F1A3 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		80A04B5E2C2372700049F1A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		EC42F4CD2C33257C0020A4E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EC42F4CF2C333DFD0020A4E1 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EC42F4D42C3342200020A4E1 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,8 +118,8 @@
 		809F674E2C22808F004F11C5 /* TerpMeals */ = {
 			isa = PBXGroup;
 			children = (
-				EC42F4CD2C33257C0020A4E1 /* GoogleService-Info.plist */,
 				80A04B5E2C2372700049F1A3 /* Info.plist */,
+				0C9A8A562C35B30100BAED42 /* GoogleService-Info.plist */,
 				EC42F4D32C3341EA0020A4E1 /* Utilities */,
 				EC42F4D12C3341C40020A4E1 /* Authentication */,
 				809F67512C22808F004F11C5 /* ContentView.swift */,
@@ -298,7 +298,7 @@
 			files = (
 				809F67572C228090004F11C5 /* Preview Assets.xcassets in Resources */,
 				809F67542C228090004F11C5 /* Assets.xcassets in Resources */,
-				EC42F4CE2C33257C0020A4E1 /* GoogleService-Info.plist in Resources */,
+				0C9A8A572C35B30100BAED42 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
