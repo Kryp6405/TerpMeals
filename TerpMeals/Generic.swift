@@ -14,14 +14,7 @@ struct HeaderView: View {
             Image("LogoRemBg")
                 .resizable()
                 .frame(width: 35, height: 35)
-            HStack(spacing: 0) {
-                ForEach(Array("TerpMeals").indices, id: \.self) { index in
-                    let letter = Array("TerpMeals")[index]
-                    Text(String(letter))
-                        .font(.custom("ArialRoundedMTBold", size: 28))
-                        .foregroundColor(index < 4 ? .black : .red)
-                }
-            }
+            LogoText()
             Spacer()
         }
         .padding(.horizontal)
@@ -30,6 +23,20 @@ struct HeaderView: View {
         Rectangle()
             .frame(height: 2)
             .foregroundColor(.black.opacity(0.2))
+    }
+}
+
+struct LogoText: View {
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(Array("TerpMeals").indices, id: \.self) { index in
+                let letter = Array("TerpMeals")[index]
+                Text(String(letter))
+                    .font(.system(size:52))
+                    .fontWeight(.bold)
+                    .foregroundColor(index < 4 ? .black : .red)
+            }
+        }
     }
 }
 

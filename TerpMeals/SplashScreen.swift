@@ -14,7 +14,7 @@ struct SplashScreen: View {
 
     var body: some View {
         if isActive {
-            SignIn()
+            Intro()
         } else {
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [Color.white, Color.gray.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
@@ -34,7 +34,8 @@ struct SplashScreen: View {
                         ForEach(Array("TerpMeals").indices, id: \.self) { index in
                             let letter = Array("TerpMeals")[index]
                             Text(String(letter))
-                                .font(.custom("ArialRoundedMTBold", size: 28))
+                                .font(.system(size: 40))
+                                .fontWeight(.bold)
                                 .foregroundColor(index < 4 ? .black : .red)
                                 .opacity(textAnimationStep > index ? 1 : 0)
                         }

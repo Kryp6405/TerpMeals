@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C4080EA2C370F7E00D768D9 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4080E92C370F7E00D768D9 /* Login.swift */; };
+		0C4080EC2C370FB200D768D9 /* Intro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4080EB2C370FB200D768D9 /* Intro.swift */; };
+		0C4080EE2C370FCB00D768D9 /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4080ED2C370FCB00D768D9 /* Signup.swift */; };
+		0C4080F02C37576000D768D9 /* GoogleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4080EF2C37576000D768D9 /* GoogleAuth.swift */; };
 		0C9A8A572C35B30100BAED42 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C9A8A562C35B30100BAED42 /* GoogleService-Info.plist */; };
 		808D24A92C290DAD00E44B2E /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808D24A82C290DAD00E44B2E /* ProfileInfo.swift */; };
-		809D33082C27FAC000E37C34 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D33072C27FAC000E37C34 /* HeaderView.swift */; };
+		809D33082C27FAC000E37C34 /* Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D33072C27FAC000E37C34 /* Generic.swift */; };
 		809F67502C22808F004F11C5 /* TerpMealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F674F2C22808F004F11C5 /* TerpMealsApp.swift */; };
 		809F67522C22808F004F11C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F67512C22808F004F11C5 /* ContentView.swift */; };
 		809F67542C228090004F11C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 809F67532C228090004F11C5 /* Assets.xcassets */; };
@@ -45,9 +49,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C4080E92C370F7E00D768D9 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		0C4080EB2C370FB200D768D9 /* Intro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intro.swift; sourceTree = "<group>"; };
+		0C4080ED2C370FCB00D768D9 /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
+		0C4080EF2C37576000D768D9 /* GoogleAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuth.swift; sourceTree = "<group>"; };
 		0C9A8A562C35B30100BAED42 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "TerpMeals/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		808D24A82C290DAD00E44B2E /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
-		809D33072C27FAC000E37C34 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		809D33072C27FAC000E37C34 /* Generic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generic.swift; sourceTree = "<group>"; };
 		809F674C2C22808F004F11C5 /* TerpMeals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TerpMeals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		809F674F2C22808F004F11C5 /* TerpMealsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerpMealsApp.swift; sourceTree = "<group>"; };
 		809F67512C22808F004F11C5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +102,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C4080E72C3604A300D768D9 /* OldAuthViews */ = {
+			isa = PBXGroup;
+			children = (
+				80A04B502C2366540049F1A3 /* SignIn.swift */,
+				80A04B522C2366680049F1A3 /* SignUp.swift */,
+				808D24A82C290DAD00E44B2E /* ProfileInfo.swift */,
+			);
+			path = OldAuthViews;
+			sourceTree = "<group>";
+		};
+		0C4080E82C370F6900D768D9 /* AuthViews */ = {
+			isa = PBXGroup;
+			children = (
+				0C4080E92C370F7E00D768D9 /* Login.swift */,
+				0C4080EF2C37576000D768D9 /* GoogleAuth.swift */,
+				0C4080EB2C370FB200D768D9 /* Intro.swift */,
+				0C4080ED2C370FCB00D768D9 /* Signup.swift */,
+			);
+			path = AuthViews;
+			sourceTree = "<group>";
+		};
 		809F67432C22808F004F11C5 = {
 			isa = PBXGroup;
 			children = (
@@ -118,17 +147,16 @@
 		809F674E2C22808F004F11C5 /* TerpMeals */ = {
 			isa = PBXGroup;
 			children = (
+				0C4080E82C370F6900D768D9 /* AuthViews */,
 				80A04B5E2C2372700049F1A3 /* Info.plist */,
 				0C9A8A562C35B30100BAED42 /* GoogleService-Info.plist */,
 				EC42F4D32C3341EA0020A4E1 /* Utilities */,
 				EC42F4D12C3341C40020A4E1 /* Authentication */,
 				809F67512C22808F004F11C5 /* ContentView.swift */,
+				0C4080E72C3604A300D768D9 /* OldAuthViews */,
 				809F674F2C22808F004F11C5 /* TerpMealsApp.swift */,
 				809F67792C2282A9004F11C5 /* SplashScreen.swift */,
-				80A04B502C2366540049F1A3 /* SignIn.swift */,
-				809D33072C27FAC000E37C34 /* HeaderView.swift */,
-				80A04B522C2366680049F1A3 /* SignUp.swift */,
-				808D24A82C290DAD00E44B2E /* ProfileInfo.swift */,
+				809D33072C27FAC000E37C34 /* Generic.swift */,
 				809F67532C228090004F11C5 /* Assets.xcassets */,
 				809F67552C228090004F11C5 /* Preview Content */,
 			);
@@ -324,13 +352,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				808D24A92C290DAD00E44B2E /* ProfileInfo.swift in Sources */,
+				0C4080EA2C370F7E00D768D9 /* Login.swift in Sources */,
 				EC42F4D02C333DFD0020A4E1 /* AuthenticationManager.swift in Sources */,
 				809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */,
-				809D33082C27FAC000E37C34 /* HeaderView.swift in Sources */,
+				809D33082C27FAC000E37C34 /* Generic.swift in Sources */,
+				0C4080EE2C370FCB00D768D9 /* Signup.swift in Sources */,
 				809F67522C22808F004F11C5 /* ContentView.swift in Sources */,
 				809F67502C22808F004F11C5 /* TerpMealsApp.swift in Sources */,
 				EC42F4D52C3342200020A4E1 /* Utilities.swift in Sources */,
+				0C4080F02C37576000D768D9 /* GoogleAuth.swift in Sources */,
 				80A04B512C2366540049F1A3 /* SignIn.swift in Sources */,
+				0C4080EC2C370FB200D768D9 /* Intro.swift in Sources */,
 				80A04B532C2366680049F1A3 /* SignUp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
