@@ -22,7 +22,7 @@ struct SplashScreen: View {
                 VStack {
                     Image("LogoRemBg")
                         .resizable()
-                        .frame(width: 200, height: 200)
+                        .frame(width: 250, height: 250)
                         .opacity(imageOpacity)
                         .onAppear {
                             withAnimation(.easeIn(duration: 1.2).delay(1)) {

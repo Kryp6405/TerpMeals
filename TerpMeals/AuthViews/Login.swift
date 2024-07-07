@@ -15,17 +15,12 @@ struct Login: View {
     @State private var navigateToHome = false
     @FocusState private var focusedField: Field?
     
-    enum Field: Hashable {
-        case email
-        case password
-    }
-    
     var body: some View {
-        NavigationView {
+        VStack {
             GeometryReader { geo in
                 ZStack(alignment: .topLeading) {
                     Rectangle()
-                        .fill(Color.red)
+                        .fill(.red)
                         .frame(width: geo.size.width, height: geo.size.height * 2 / 3)
                         .offset(y: -geo.safeAreaInsets.top)
                     
@@ -60,7 +55,7 @@ struct Login: View {
                                 Text("Email")
                                     .fontWeight(.medium)
                                     .foregroundColor(
-                                        focusedField == .email ? .red : .gray
+                                        focusedField == .email ? .black : .gray
                                     )
 
                                 TextField("exmaple@email. com", text: $email)
@@ -71,7 +66,7 @@ struct Login: View {
                                     .focused($focusedField, equals: .email)
                                     .onChange(of: focusedField) { newValue in
                                         if newValue == .email {
-                                            UITextField.appearance().tintColor = .red
+                                            UITextField.appearance().tintColor = .black
                                         }
                                     }
                                 
@@ -80,7 +75,7 @@ struct Login: View {
                                         height: focusedField == .email ? 1 : 0.5
                                     )
                                     .background(
-                                        focusedField == .email ? Color.red : Color.gray
+                                        focusedField == .email ? .black : .gray
                                     )
                             })
                             .padding()
@@ -93,7 +88,7 @@ struct Login: View {
                                         Text("Password")
                                             .fontWeight(.medium)
                                             .foregroundColor(
-                                                focusedField == .password ? .red : .gray
+                                                focusedField == .password ? .black : .gray
                                             )
 
                                         TextField("*******", text: $password)
@@ -102,7 +97,7 @@ struct Login: View {
                                             .focused($focusedField, equals: .password)
                                             .onChange(of: focusedField) { newValue in
                                                 if newValue == .password {
-                                                    UITextField.appearance().tintColor = .red
+                                                    UITextField.appearance().tintColor = .black
                                                 }
                                             }
                                         
@@ -111,7 +106,7 @@ struct Login: View {
                                                 height: focusedField == .password ? 1 : 0.5
                                             )
                                             .background(
-                                                focusedField == .password ? Color.red : Color.gray
+                                                focusedField == .password ? .black : .gray
                                             )
                                     })
                                     .padding()
@@ -123,7 +118,7 @@ struct Login: View {
                                         Text("Password")
                                             .fontWeight(.medium)
                                             .foregroundColor(
-                                                focusedField == .password ? .red : .gray
+                                                focusedField == .password ? .black : .gray
                                             )
 
                                         SecureField("*******", text: $password)
@@ -132,7 +127,7 @@ struct Login: View {
                                             .focused($focusedField, equals: .password)
                                             .onChange(of: focusedField) { newValue in
                                                 if newValue == .password {
-                                                    UITextField.appearance().tintColor = .red
+                                                    UITextField.appearance().tintColor = .black
                                                 }
                                             }
                                         
@@ -141,7 +136,7 @@ struct Login: View {
                                                 height: focusedField == .password ? 1 : 0.5
                                             )
                                             .background(
-                                                focusedField == .password ? Color.red : Color.gray
+                                                focusedField == .password ? .black : .gray
                                             )
                                     })
                                     .padding()
@@ -164,16 +159,15 @@ struct Login: View {
                             }
                             .padding(.bottom,10)
                         }
-                        .padding(.vertical, 30)
+                        .padding(.vertical, 20)
                         .background(Color.white)
                         .cornerRadius(5)
                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
                         .padding(.horizontal, 20)
                         
                         
-                        // Log In button
                         Button(action: {
-                            // Log In action
+                            login(email: email, password: password)
                         }) {
                             Text("Log In")
                                 .font(.headline)
@@ -240,8 +234,19 @@ struct Login: View {
                     }
                 }
             }
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button(action: {
+                        hideKeyboard()
+                    }) {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
         }
-        .navigationBarHidden(false)
     }
 }
 

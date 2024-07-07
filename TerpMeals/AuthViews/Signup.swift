@@ -6,22 +6,36 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct Signup: View {
     @StateObject private var viewModel = SignInModel()
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var showPassword: Bool = false
-    @State private var navigateToHome = false
+    @State private var confirm_password: String = ""
+    @State private var showConfirmPassword: Bool = false
+    @State private var userSignedUp = false
     @FocusState private var focusedField: Field?
-    
-    enum Field: Hashable {
-        case email
-        case password
-    }
+    @State private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
     
     var body: some View {
-        NavigationView {
+        if userSignedUp {
+            UserForm()
+                .onDisappear {
+                    signOutAndDeleteUser { error in
+                        if let error = error {
+                            print("Error signing out and deleting user: \(error)")
+                        }
+                    }
+                }
+        } else {
+            content
+        }
+    }
+    
+    var content: some View {
+        VStack {
             GeometryReader { geo in
                 ZStack(alignment: .topLeading) {
                     Rectangle()
@@ -60,7 +74,7 @@ struct Signup: View {
                                 Text("Email")
                                     .fontWeight(.medium)
                                     .foregroundColor(
-                                        focusedField == .email ? .red : .gray
+                                        focusedField == .email ? .black : .gray
                                     )
 
                                 TextField("exmaple@email. com", text: $email)
@@ -71,7 +85,7 @@ struct Signup: View {
                                     .focused($focusedField, equals: .email)
                                     .onChange(of: focusedField) { newValue in
                                         if newValue == .email {
-                                            UITextField.appearance().tintColor = .red
+                                            UITextField.appearance().tintColor = .black
                                         }
                                     }
                                 
@@ -80,7 +94,7 @@ struct Signup: View {
                                         height: focusedField == .email ? 1 : 0.5
                                     )
                                     .background(
-                                        focusedField == .email ? Color.red : Color.gray
+                                        focusedField == .email ? .black : .gray
                                     )
                             })
                             .padding()
@@ -93,7 +107,7 @@ struct Signup: View {
                                         Text("Password")
                                             .fontWeight(.medium)
                                             .foregroundColor(
-                                                focusedField == .password ? .red : .gray
+                                                focusedField == .password ? .black : .gray
                                             )
 
                                         TextField("*******", text: $password)
@@ -102,7 +116,7 @@ struct Signup: View {
                                             .focused($focusedField, equals: .password)
                                             .onChange(of: focusedField) { newValue in
                                                 if newValue == .password {
-                                                    UITextField.appearance().tintColor = .red
+                                                    UITextField.appearance().tintColor = .black
                                                 }
                                             }
                                         
@@ -111,7 +125,7 @@ struct Signup: View {
                                                 height: focusedField == .password ? 1 : 0.5
                                             )
                                             .background(
-                                                focusedField == .password ? Color.red : Color.gray
+                                                focusedField == .password ? .black : .gray
                                             )
                                     })
                                     .padding()
@@ -123,7 +137,7 @@ struct Signup: View {
                                         Text("Password")
                                             .fontWeight(.medium)
                                             .foregroundColor(
-                                                focusedField == .password ? .red : .gray
+                                                focusedField == .password ? .black : .gray
                                             )
 
                                         SecureField("*******", text: $password)
@@ -132,7 +146,7 @@ struct Signup: View {
                                             .focused($focusedField, equals: .password)
                                             .onChange(of: focusedField) { newValue in
                                                 if newValue == .password {
-                                                    UITextField.appearance().tintColor = .red
+                                                    UITextField.appearance().tintColor = .black
                                                 }
                                             }
                                         
@@ -141,7 +155,70 @@ struct Signup: View {
                                                 height: focusedField == .password ? 1 : 0.5
                                             )
                                             .background(
-                                                focusedField == .password ? Color.red : Color.gray
+                                                focusedField == .password ? .black : .gray
+                                            )
+                                    })
+                                    .padding()
+                                    .cornerRadius(5)
+                                    .padding(.horizontal, 10)
+                                }
+                            }
+                            
+                            HStack {
+                                if showConfirmPassword {
+                                    VStack(alignment: .leading, spacing: 2, content: {
+                                        Text("Confirm Password")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(
+                                                focusedField == .confirm_password ? .black : .gray
+                                            )
+
+                                        TextField("*******", text: $confirm_password)
+                                            .font(.system(size: 20, weight: .light))
+                                            .foregroundColor(.black)
+                                            .focused($focusedField, equals: .password)
+                                            .onChange(of: focusedField) { newValue in
+                                                if newValue == .confirm_password {
+                                                    UITextField.appearance().tintColor = .black
+                                                }
+                                            }
+                                        
+                                        Divider()
+                                            .frame(
+                                                height: focusedField == .confirm_password ? 1 : 0.5
+                                            )
+                                            .background(
+                                                focusedField == .confirm_password ? .black : .gray
+                                            )
+                                    })
+                                    .padding()
+                                    .cornerRadius(5)
+                                    .padding(.horizontal, 10)
+                                    
+                                } else {
+                                    VStack(alignment: .leading, spacing: 2, content: {
+                                        Text("Confirm Password")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(
+                                                focusedField == .confirm_password ? .black : .gray
+                                            )
+
+                                        SecureField("*******", text: $confirm_password)
+                                            .font(.system(size: 20, weight: .light))
+                                            .foregroundColor(.black)
+                                            .focused($focusedField, equals: .confirm_password)
+                                            .onChange(of: focusedField) { newValue in
+                                                if newValue == .confirm_password {
+                                                    UITextField.appearance().tintColor = .black
+                                                }
+                                            }
+                                        
+                                        Divider()
+                                            .frame(
+                                                height: focusedField == .confirm_password ? 1 : 0.5
+                                            )
+                                            .background(
+                                                focusedField == .confirm_password ? .black : .gray
                                             )
                                     })
                                     .padding()
@@ -150,16 +227,15 @@ struct Signup: View {
                                 }
                             }
                         }
-                        .padding(.vertical, 30)
+                        .padding(.vertical, 20)
                         .background(Color.white)
                         .cornerRadius(5)
                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
                         .padding(.horizontal, 20)
                         
                         
-                        // Log In button
                         Button(action: {
-                            // Log In action
+                            signup(email: email, password: password)
                         }) {
                             Text("Sign Up")
                                 .font(.headline)
@@ -181,7 +257,7 @@ struct Signup: View {
                                 Task {
                                     do {
                                         try await viewModel.signInGoogle()
-                                        navigateToHome = true
+                                        userSignedUp = true
                                     } catch {
                                         print(error)
                                     }
@@ -226,8 +302,31 @@ struct Signup: View {
                     }
                 }
             }
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button(action: {
+                        hideKeyboard()
+                    }) {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
         }
-        .navigationBarHidden(false)
+        .onAppear {
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if user != nil {
+                    userSignedUp.toggle()
+                }
+            }
+        }
+        .onDisappear {
+            if let handle = authStateListenerHandle {
+                Auth.auth().removeStateDidChangeListener(handle)
+            }
+        }
     }
 }
 

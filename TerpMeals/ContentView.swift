@@ -45,35 +45,6 @@ struct HomeView: View {
     }
 }
 
-struct CustomTabView: View {
-    var body: some View {
-        HStack {
-            Spacer()
-            Button(action: {
-                // Action for home button
-            }) {
-                Image(systemName: "house.fill")
-                    .font(.system(size: 24))
-                    .foregroundColor(.blue)
-            }
-            Spacer()
-            Button(action: {
-                // Action for plus button
-            }) {
-                Image(systemName: "plus.circle.fill")
-                    .font(.system(size: 24))
-                    .foregroundColor(.blue)
-            }
-            Spacer()
-        }
-        .padding()
-        .background(Color.white.opacity(0.9))
-        .cornerRadius(10)
-        .shadow(radius: 10)
-        .padding(.bottom, 20)
-    }
-}
-
 struct ScrollViewOffsetPreferenceKey: PreferenceKey {
     typealias Value = CGFloat
     static var defaultValue: Value = 0
