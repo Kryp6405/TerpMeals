@@ -6,15 +6,23 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct SplashScreen: View {
     @State private var isActive: Bool = false
+    @State private var isSignedIn: Bool = false
     @State private var imageOpacity: Double = 0
     @State private var textAnimationStep: Int = 0
 
     var body: some View {
         if isActive {
-            Intro()
+            if isSignedIn {
+                HomeView()
+            } else {
+                Intro()
+            }
+            
+//            Intro()
         } else {
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [Color.white, Color.gray.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
@@ -45,6 +53,8 @@ struct SplashScreen: View {
                     }
                 }
                 .onAppear {
+                    checkAuthStatus()
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                         withAnimation {
                             self.isActive = true
@@ -65,6 +75,17 @@ struct SplashScreen: View {
             }
         }
     }
+    
+    private func checkAuthStatus() {
+            // Simulate a delay for the splash screen
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                if let _ = Auth.auth().currentUser {
+                    self.isSignedIn = true
+                } else {
+                    self.isSignedIn = false
+                }
+            }
+        }
 }
 
 

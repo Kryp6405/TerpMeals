@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct Signup: View {
-    @StateObject private var viewModel = SignInModel()
+    @StateObject private var viewModel = LoginModel()
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var showPassword: Bool = false
@@ -254,10 +254,29 @@ struct Signup: View {
                         HStack {
                             Button(action: {
                                 // Google Sign-In Action
+                                userSignedUp = false
                                 Task {
                                     do {
                                         try await viewModel.signInGoogle()
-                                        userSignedUp = true
+                                        checkUserExists { exists, uid in
+                                            if exists {
+                                                if let uid = uid {
+                                                    print("User with UID \(uid) exists in the database.")
+                                                    userSignedUp = false
+                                                    do {
+                                                        try Auth.auth().signOut()
+                                                        print("User already exists. Please Login")
+                                                    } catch let signOutError as NSError {
+                                                        print(signOutError)
+                                                    }
+                                                } else {
+                                                    print("User exists but UID is nil.")
+                                                }
+                                            } else {
+                                                print("User does not exist in the database.")
+                                                userSignedUp = true
+                                            }
+                                        }
                                     } catch {
                                         print(error)
                                     }

@@ -54,6 +54,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 }
 
 struct UserForm: View {
+    @State private var navigateToHome = false
     @State private var profileImage: UIImage?
     @State private var firstName: String = ""
     @State private var lastName: String = ""
@@ -62,67 +63,96 @@ struct UserForm: View {
     @State private var weight: String = ""
     @State private var height_ft: String = ""
     @State private var height_in: String = ""
+    
     @State private var preferredDiningHall = 0
     @State private var preferredCuisine: String = ""
     @State private var showImagePicker: Bool = false
     @State private var isKg: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
+    private var canSave: Bool {
+           !firstName.isEmpty &&
+           !lastName.isEmpty &&
+           !weight.isEmpty &&
+           !height_ft.isEmpty &&
+           !height_in.isEmpty &&
+           !preferredCuisine.isEmpty &&
+            preferredDiningHall > 0 &&
+            gender >= 0
+       }
+    
     var body: some View {
-        NavigationView {
-            GeometryReader { geo in
-                ZStack(alignment: .topLeading) {
-                    Rectangle()
-                        .fill(Color.red)
-                        .frame(width: geo.size.width, height: geo.size.height * 2 / 3)
-                        .offset(y: geo.size.height * 1 / 3 + geo.safeAreaInsets.top)
-                    
-                    VStack {
-                        headerSection
-                        formSection
-                            .padding(.horizontal, 20)
+        if navigateToHome {
+            HomeView()
+        } else {
+            NavigationView {
+                GeometryReader { geo in
+                    ZStack(alignment: .topLeading) {
+                        Rectangle()
+                            .fill(Color.red)
+                            .frame(width: geo.size.width, height: geo.size.height * 2 / 3)
+                            .offset(y: geo.size.height * 1 / 3 + geo.safeAreaInsets.top)
+                        
+                        VStack {
+                            headerSection
+                            formSection
+                                .padding(.horizontal, 20)
+                        }
+                        .padding(10)
                     }
-                    .padding(10)
                 }
-            }
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        signOutAndDeleteUser { error in
-                            if let error = error {
-                                print("Error signing out and deleting user: \(error)")
-                                return
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            signOutAndDeleteUser { error in
+                                if let error = error {
+                                    print("Error signing out and deleting user: \(error)")
+                                    return
+                                }
+                                
+                                DispatchQueue.main.async {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }) {
+                            Image(systemName: "chevron.backward")
+                                .foregroundColor(.red)
+                        }
+                        
+                    }
+                    
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            if let uid = Auth.auth().currentUser?.uid {
+                                saveUserInfo(userId: uid, firstName: firstName, lastName: lastName, birthdate: birthdate,
+                                             gender: gender, weight: weight, height_ft: height_ft, height_in: height_in,
+                                             preferredDiningHall: preferredDiningHall, preferredCuisine: preferredCuisine, isKg: isKg) { error in
+                                    if let error = error {
+                                        print("Error saving user info: \(error.localizedDescription)")
+                                        return
+                                    }
+                                }
+                            } else {
+                                print("Error: Current user is nil. Unable to save user info.")
                             }
                             
-                            DispatchQueue.main.async {
-                                presentationMode.wrappedValue.dismiss()
-                            }
-                        }
-                    }) {
-                        Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            navigateToHome = true
+                        }) {
+                            Text("Save")
+                                .foregroundColor(.red)
+                        }.disabled(!canSave)
                     }
                     
-                }
-            
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
                         
-                    }) {
-                        Text("Save")
-                            .foregroundColor(.red)
-                    }
-                }
-                
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    
-                    Button(action: {
-                        hideKeyboard()
-                    }) {
-                        Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                        Button(action: {
+                            hideKeyboard()
+                        }) {
+                            Image(systemName: "keyboard.chevron.compact.down")
+                                .foregroundColor(.red)
+                        }
                     }
                 }
             }
