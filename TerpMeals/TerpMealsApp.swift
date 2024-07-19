@@ -10,12 +10,11 @@ import Firebase
 
 @main
 struct TerpMealsApp: App {
-    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
-            SplashScreen()
+            Intro()
         }
     }
 }

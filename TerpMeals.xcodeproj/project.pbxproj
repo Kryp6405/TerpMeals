@@ -3,10 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C256A2C2C42F1690002CC73 /* SignupPrev.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C256A2B2C42F1690002CC73 /* SignupPrev.swift */; };
+		0C380B852C3B27A100FDAED3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0C380B842C3B27A100FDAED3 /* FirebaseFirestore */; };
+		0C380B872C3B27A100FDAED3 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0C380B862C3B27A100FDAED3 /* FirebaseFirestoreSwift */; };
+		0C380B892C3B27A100FDAED3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0C380B882C3B27A100FDAED3 /* FirebaseStorage */; };
+		0C380B8B2C3E1A6600FDAED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C380B8A2C3E1A6600FDAED3 /* LaunchScreen.storyboard */; };
 		0C4080EA2C370F7E00D768D9 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4080E92C370F7E00D768D9 /* Login.swift */; };
 		0C4080EC2C370FB200D768D9 /* Intro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4080EB2C370FB200D768D9 /* Intro.swift */; };
 		0C4080EE2C370FCB00D768D9 /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4080ED2C370FCB00D768D9 /* Signup.swift */; };
@@ -50,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C256A2B2C42F1690002CC73 /* SignupPrev.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPrev.swift; sourceTree = "<group>"; };
+		0C380B8A2C3E1A6600FDAED3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C4080E92C370F7E00D768D9 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		0C4080EB2C370FB200D768D9 /* Intro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intro.swift; sourceTree = "<group>"; };
 		0C4080ED2C370FCB00D768D9 /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
@@ -81,9 +88,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C380B872C3B27A100FDAED3 /* FirebaseFirestoreSwift in Frameworks */,
 				ECA971C22C3236E6000AD049 /* GoogleSignInSwift in Frameworks */,
+				0C380B852C3B27A100FDAED3 /* FirebaseFirestore in Frameworks */,
 				ECA971BE2C3236D8000AD049 /* FirebaseAuth in Frameworks */,
 				ECA971C02C3236DF000AD049 /* GoogleSignIn in Frameworks */,
+				0C380B892C3B27A100FDAED3 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +132,7 @@
 				0C4080EF2C37576000D768D9 /* GoogleAuth.swift */,
 				0C4080EB2C370FB200D768D9 /* Intro.swift */,
 				0C4080ED2C370FCB00D768D9 /* Signup.swift */,
+				0C256A2B2C42F1690002CC73 /* SignupPrev.swift */,
 			);
 			path = AuthViews;
 			sourceTree = "<group>";
@@ -162,6 +173,7 @@
 				809D33072C27FAC000E37C34 /* Generic.swift */,
 				809F67532C228090004F11C5 /* Assets.xcassets */,
 				809F67552C228090004F11C5 /* Preview Content */,
+				0C380B8A2C3E1A6600FDAED3 /* LaunchScreen.storyboard */,
 			);
 			path = TerpMeals;
 			sourceTree = "<group>";
@@ -234,6 +246,9 @@
 				ECA971BD2C3236D8000AD049 /* FirebaseAuth */,
 				ECA971BF2C3236DF000AD049 /* GoogleSignIn */,
 				ECA971C12C3236E6000AD049 /* GoogleSignInSwift */,
+				0C380B842C3B27A100FDAED3 /* FirebaseFirestore */,
+				0C380B862C3B27A100FDAED3 /* FirebaseFirestoreSwift */,
+				0C380B882C3B27A100FDAED3 /* FirebaseStorage */,
 			);
 			productName = TerpMeals;
 			productReference = 809F674C2C22808F004F11C5 /* TerpMeals.app */;
@@ -299,7 +314,7 @@
 				};
 			};
 			buildConfigurationList = 809F67472C22808F004F11C5 /* Build configuration list for PBXProject "TerpMeals" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -328,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				809F67572C228090004F11C5 /* Preview Assets.xcassets in Resources */,
+				0C380B8B2C3E1A6600FDAED3 /* LaunchScreen.storyboard in Resources */,
 				809F67542C228090004F11C5 /* Assets.xcassets in Resources */,
 				0C9A8A572C35B30100BAED42 /* GoogleService-Info.plist in Resources */,
 			);
@@ -356,6 +372,7 @@
 			files = (
 				808D24A92C290DAD00E44B2E /* AuthModels.swift in Sources */,
 				0C4080EA2C370F7E00D768D9 /* Login.swift in Sources */,
+				0C256A2C2C42F1690002CC73 /* SignupPrev.swift in Sources */,
 				EC42F4D02C333DFD0020A4E1 /* AuthenticationManager.swift in Sources */,
 				809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */,
 				809D33082C27FAC000E37C34 /* Generic.swift in Sources */,
@@ -535,8 +552,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -567,8 +586,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -719,6 +740,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0C380B842C3B27A100FDAED3 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80A04B542C236D500049F1A3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		0C380B862C3B27A100FDAED3 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80A04B542C236D500049F1A3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		0C380B882C3B27A100FDAED3 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80A04B542C236D500049F1A3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		ECA971BD2C3236D8000AD049 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80A04B542C236D500049F1A3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

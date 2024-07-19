@@ -7,20 +7,25 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct UserInfo: Identifiable, Codable {
-    var id: String
-    var email: String
-    var first_name: String
-    var last_name: String
-    var age: Int
-    var DOB: Int
-    var gender: String
-    var weight: Int
-    var height_ft: Int
-    var height_in: Int
-    var din_hall_pref: String
-    var cuisine_pref: String
+struct User: Identifiable, Codable {
+    let id: String
+    let email: String
+    let first_name: String
+    let last_name: String
+    var full_name: String {
+        return first_name + " " + last_name
+    }
+    let DOB: String
+    let gender: String
+    let weight: String
+    let height_ft: String
+    let height_in: String
+    let din_hall_pref: String
+    let cuisine_pref: String
 }
 
 enum Field: Hashable {
@@ -29,59 +34,70 @@ enum Field: Hashable {
     case confirm_password
 }
 
-func login(email:String, password:String) {
-    Auth.auth()
-        .signIn(
-            withEmail: email,
-            password: password
-        ) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
-    }
-}
-
-func signup(email:String, password:String) {
-    Auth.auth()
-        .createUser(
-            withEmail: email,
-            password: password
-        ) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
-    }
-}
-
-func signOutAndDeleteUser(completion: @escaping (Error?) -> Void) {
-    guard let user = Auth.auth().currentUser else {
-        completion(nil)
-        return
+@MainActor
+class AuthenticationModel: ObservableObject {
+    @Published var userSession: FirebaseAuth.User?
+    @Published var currUser: User?
+    
+    init() {
+        self.userSession = Auth.auth().currentUser
     }
     
-    user.delete { error in
-        if let error = error {
-            completion(error)
+    func login(email:String, password:String) async throws {
+        do {
+            let res = try await Auth.auth().signIn(withEmail: email, password: password)
+            self.userSession = res.user
+            //await fetchData()
+        } catch {
+            print("AUTH: Failed to login existing user \"\(error.localizedDescription)\"")
+        }
+    }
+
+    func signUp(email:String, password:String) async throws {
+        do {
+            let res = try await Auth.auth().createUser(withEmail: email, password: password)
+            self.userSession = res.user
+        } catch {
+            print("AUTH: Failed to create new user with error \"\(error.localizedDescription)\"")
+        }
+    }
+    
+    func createUser(user: User) async throws{
+        let encodedUser = try Firestore.Encoder().encode(user)
+    }
+
+    func signOutAndDeleteUser(completion: @escaping (Error?) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion(nil)
             return
         }
         
-        do {
-            try Auth.auth().signOut()
-            completion(nil)
-        } catch let signOutError as NSError {
-            completion(signOutError)
+        user.delete { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            do {
+                try Auth.auth().signOut()
+                completion(nil)
+            } catch let signOutError as NSError {
+                completion(signOutError)
+            }
         }
     }
-}
-
-/*func saveUserInfo(userId: String, firstName: String, lastName: String, age: Int, gender: String, completion: @escaping (Error?) -> Void) {
-    let db = Firestore.firestore()
-    db.collection("users").document(userId).setData([
-        "firstName": firstName,
-        "lastName": lastName,
-        "age": age,
-        "gender": gender
-    ]) { error in
-        completion(error)
+    
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            self.userSession = nil
+            self.currUser = nil
+        } catch {
+            print("AUTH: Failed to sign out current user \"\(error.localizedDescription)\"")
+        }
     }
-}*/
+    
+    func deleteAccount() {
+        
+    }
+}

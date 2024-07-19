@@ -53,6 +53,522 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 }
 
+struct Q1: View {
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("Let's get started!")
+                Text("Which dining hall do you prefer?")
+                            
+                Spacer()
+                
+                VStack {
+                    Button(action: {}) {
+                        Text("251 North")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                            .shadow(radius: 1)
+                    }
+                    
+                    
+                    Button(action: {}){
+                        Text("The Yahentimitsi")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                            .shadow(radius: 1)
+                    }
+                    
+                    Button(action: {}){
+                        Text("South Diner")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                            .shadow(radius: 1)
+                    }
+                }
+                
+                Spacer()
+                
+                NavigationLink(destination: Q2()){
+                    Text("Next")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                }
+
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.red)
+                    }
+                    
+                }
+                
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button(action: {
+                        hideKeyboard()
+                    }) {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct Q2: View {
+    @Environment(\.presentationMode) var presentationMode
+    
+    let dietaryOptions = [
+        ["Dairy", "Nuts", "Eggs", "Sesame", "Soy", "Fish"],
+        ["Gluten", "Shellfish", "Vegetarian", "Vegan", "Halal", "None"]
+    ]
+    
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("Let's get to know you better!")
+                Text("What are your dietary restrictions or allergies? Select all that apply.")
+                    .multilineTextAlignment(.center)
+                            
+                Spacer()
+                
+                HStack {
+                    ForEach(dietaryOptions, id: \.self) { column in
+                        VStack {
+                            ForEach(column, id: \.self) { option in
+                                DietaryButton(text: option)
+                            }
+                        }
+                    }
+                }
+                
+                Spacer()
+                
+                NavigationLink(destination: Q3()) {
+                    Text("Next")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                }
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.red)
+                    }
+                }
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button(action: {
+                        hideKeyboard()
+                    }) {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+        }
+    }
+    
+    struct DietaryButton: View {
+        let text: String
+        
+        var body: some View {
+            Button(action: {}) {
+                Text(text)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.white)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+                    .shadow(radius: 1)
+            }
+        }
+    }
+}
+
+
+
+struct Q3: View {
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("We can help you!")
+                Text("Which sex should we consider when calculating your personalized recommendations?")
+                            
+                Spacer()
+                
+                VStack {
+                    Button(action: {}) {
+                        Text("Male")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                            .shadow(radius: 1)
+                    }
+                    
+                    
+                    Button(action: {}){
+                        Text("Female")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                            .shadow(radius: 1)
+                    }
+                }
+                
+                Spacer()
+                
+                NavigationLink(destination: Q4()){
+                    Text("Next")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                }
+
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.red)
+                    }
+                    
+                }
+                
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button(action: {
+                        hideKeyboard()
+                    }) {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct Q4: View {
+    @State private var month: String = ""
+    @State private var day: String = ""
+    @State private var year: String = ""
+    @State private var dob: Date = Date()
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("Next step")
+                Text("What is your birthdate?")
+                            
+                Spacer()
+                
+                HStack {
+                    DatePicker(
+                        "Select Date",
+                        selection: $dob,
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .labelsHidden()
+                    
+                }
+                
+                Spacer()
+                
+                NavigationLink(destination: Q5()){
+                    Text("Next")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                }
+
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.red)
+                    }
+                    
+                }
+                
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button(action: {
+                        hideKeyboard()
+                    }) {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct Q5: View {
+    @State private var ft = 5
+    @State private var inc = 7
+    @State private var cm = 170
+    @State private var mm = 0
+    @State private var isImperial: Bool = false
+    @Environment(\.presentationMode) var presentationMode
+    
+    let feetRange = Array(3...8)
+    let inchesRange = Array(0...11)
+    let centimetersRange = Array(0...300)
+    let millimetersRange = Array(0...9)
+    
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("Next step")
+                Text("What is your height?")
+                            
+                Spacer()
+                
+                Picker("Units", selection: $isImperial) {
+                    Text("ft/in").tag(false)
+                    Text("cm").tag(true)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+
+                if !isImperial {
+                    HStack {
+                        Picker("Feet", selection: $ft) {
+                            ForEach(feetRange, id: \.self) { feet in
+                                Text("\(feet) ft")
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        .frame(width: 100, height: 150)
+                        .clipped()
+
+                        Picker("Inches", selection: $inc) {
+                            ForEach(inchesRange, id: \.self) { inches in
+                                Text("\(inches) in")
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        .frame(width: 100, height: 150)
+                        .clipped()
+                    }
+                } else {
+                    // Metric View
+                    HStack {
+                        Picker("Centimeters", selection: $cm) {
+                            ForEach(centimetersRange, id: \.self) { cm in
+                                Text("\(cm) cm")
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        .frame(width: 100, height: 150)
+                        .clipped()
+
+                        Picker("Millimeters", selection: $mm) {
+                            ForEach(millimetersRange, id: \.self) { mm in
+                                Text("\(mm) mm")
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        .frame(width: 100, height: 150)
+                        .clipped()
+                    }
+                }
+                
+                Spacer()
+                
+                NavigationLink(destination: Q6()){
+                    Text("Next")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                }
+
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.red)
+                    }
+                    
+                }
+                
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button(action: {
+                        hideKeyboard()
+                    }) {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct Q6: View {
+    @State private var lbs = 150
+    @State private var kg = 70
+    @State private var isImperial: Bool = false
+    @Environment(\.presentationMode) var presentationMode
+    
+    let poundsRange = Array(50...400)
+    let kilogramsRange = Array(20...180)
+    
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("Next step")
+                Text("What is your height?")
+                            
+                Spacer()
+                // Unit Toggle
+                Picker("Units", selection: $isImperial) {
+                    Text("Imperial").tag(false)
+                    Text("Metric").tag(true)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+
+                // Imperial View
+                if !isImperial {
+                    Picker("Pounds", selection: $lbs) {
+                        ForEach(poundsRange, id: \.self) { lbs in
+                            Text("\(lbs) lbs")
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(width: 150, height: 150)
+                    .clipped()
+                } else {
+                    // Metric View
+                    Picker("Kilograms", selection: $kg) {
+                        ForEach(kilogramsRange, id: \.self) { kg in
+                            Text("\(kg) kg")
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(width: 150, height: 150)
+                    .clipped()
+                }
+
+                Spacer()
+                
+                NavigationLink(destination: SignupPrev()){
+                    Text("Next")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                }
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.red)
+                    }
+                    
+                }
+                
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button(action: {
+                        hideKeyboard()
+                    }) {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+//MARK: Current UserForm
 struct UserForm: View {
     @State private var profileImage: UIImage?
     @State private var firstName: String = ""
@@ -69,7 +585,7 @@ struct UserForm: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             GeometryReader { geo in
                 ZStack(alignment: .topLeading) {
                     Rectangle()
@@ -89,7 +605,7 @@ struct UserForm: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        signOutAndDeleteUser { error in
+                        AuthenticationModel().signOutAndDeleteUser { error in
                             if let error = error {
                                 print("Error signing out and deleting user: \(error)")
                                 return
@@ -252,57 +768,10 @@ struct UserForm: View {
 
 struct UserForm_Previews: PreviewProvider {
     static var previews: some View {
-        UserForm()
+        Q5()
     }
 }
 
 #Preview {
-    UserForm()
+    Q5()
 }
-
-/*func saveUserInfo() {
-        guard let profileImage = profileImage,
-              let imageData = profileImage.jpegData(compressionQuality: 0.8) else {
-            print("Missing profile image")
-            return
-        }
-        
-        let storageRef = Storage.storage().reference().child("profile_images/\(UUID().uuidString).jpg")
-        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
-            if let error = error {
-                print("Failed to upload image: \(error)")
-                return
-            }
-            
-            storageRef.downloadURL { (url, error) in
-                if let error = error {
-                    print("Failed to retrieve download URL: \(error)")
-                    return
-                }
-                
-                guard let url = url else {
-                    print("Download URL is nil")
-                    return
-                }
-                
-                let userData: [String: Any] = [
-                    "firstName": self.firstName,
-                    "lastName": self.lastName,
-                    "age": self.age,
-                    "gender": self.gender,
-                    "weight": self.weight,
-                    "height": self.height,
-                    "preferredDiningHall": self.preferredDiningHall,
-                    "profileImageUrl": url.absoluteString
-                ]
-                
-                Firestore.firestore().collection("users").addDocument(data: userData) { error in
-                    if let error = error {
-                        print("Failed to save user data: \(error)")
-                    } else {
-                        print("User data saved successfully")
-                    }
-                }
-            }
-        }
-    }*/

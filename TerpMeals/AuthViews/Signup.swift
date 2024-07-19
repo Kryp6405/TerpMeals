@@ -18,12 +18,13 @@ struct Signup: View {
     @State private var userSignedUp = false
     @FocusState private var focusedField: Field?
     @State private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         if userSignedUp {
             UserForm()
                 .onDisappear {
-                    signOutAndDeleteUser { error in
+                    AuthenticationModel().signOutAndDeleteUser { error in
                         if let error = error {
                             print("Error signing out and deleting user: \(error)")
                         }
@@ -40,7 +41,7 @@ struct Signup: View {
                 ZStack(alignment: .topLeading) {
                     Rectangle()
                         .fill(Color.red)
-                        .frame(width: geo.size.width, height: geo.size.height * 2 / 3)
+                        .frame(width: geo.size.width, height: geo.size.height * 1 / 2 + geo.safeAreaInsets.top)
                         .offset(y: -geo.safeAreaInsets.top)
                     
                     VStack {
@@ -70,6 +71,35 @@ struct Signup: View {
                         
                         
                         VStack {
+                            VStack(alignment: .leading, spacing: 2, content: {
+                                Text("First Name")
+                                    .fontWeight(.medium)
+                                    .foregroundColor(
+                                        focusedField == .confirm_password ? .black : .gray
+                                    )
+
+                                TextField("John", text: $confirm_password)
+                                    .font(.system(size: 20, weight: .light))
+                                    .foregroundColor(.black)
+                                    .focused($focusedField, equals: .confirm_password)
+                                    .onChange(of: focusedField) { newValue in
+                                        if newValue == .confirm_password {
+                                            UITextField.appearance().tintColor = .black
+                                        }
+                                    }
+                                
+                                Divider()
+                                    .frame(
+                                        height: focusedField == .confirm_password ? 1 : 0.5
+                                    )
+                                    .background(
+                                        focusedField == .confirm_password ? .black : .gray
+                                    )
+                            })
+                            .padding()
+                            .cornerRadius(5)
+                            .padding(.horizontal, 10)
+                            
                             VStack(alignment: .leading, spacing: 2, content: {
                                 Text("Email")
                                     .fontWeight(.medium)
@@ -163,69 +193,6 @@ struct Signup: View {
                                     .padding(.horizontal, 10)
                                 }
                             }
-                            
-                            HStack {
-                                if showConfirmPassword {
-                                    VStack(alignment: .leading, spacing: 2, content: {
-                                        Text("Confirm Password")
-                                            .fontWeight(.medium)
-                                            .foregroundColor(
-                                                focusedField == .confirm_password ? .black : .gray
-                                            )
-
-                                        TextField("*******", text: $confirm_password)
-                                            .font(.system(size: 20, weight: .light))
-                                            .foregroundColor(.black)
-                                            .focused($focusedField, equals: .password)
-                                            .onChange(of: focusedField) { newValue in
-                                                if newValue == .confirm_password {
-                                                    UITextField.appearance().tintColor = .black
-                                                }
-                                            }
-                                        
-                                        Divider()
-                                            .frame(
-                                                height: focusedField == .confirm_password ? 1 : 0.5
-                                            )
-                                            .background(
-                                                focusedField == .confirm_password ? .black : .gray
-                                            )
-                                    })
-                                    .padding()
-                                    .cornerRadius(5)
-                                    .padding(.horizontal, 10)
-                                    
-                                } else {
-                                    VStack(alignment: .leading, spacing: 2, content: {
-                                        Text("Confirm Password")
-                                            .fontWeight(.medium)
-                                            .foregroundColor(
-                                                focusedField == .confirm_password ? .black : .gray
-                                            )
-
-                                        SecureField("*******", text: $confirm_password)
-                                            .font(.system(size: 20, weight: .light))
-                                            .foregroundColor(.black)
-                                            .focused($focusedField, equals: .confirm_password)
-                                            .onChange(of: focusedField) { newValue in
-                                                if newValue == .confirm_password {
-                                                    UITextField.appearance().tintColor = .black
-                                                }
-                                            }
-                                        
-                                        Divider()
-                                            .frame(
-                                                height: focusedField == .confirm_password ? 1 : 0.5
-                                            )
-                                            .background(
-                                                focusedField == .confirm_password ? .black : .gray
-                                            )
-                                    })
-                                    .padding()
-                                    .cornerRadius(5)
-                                    .padding(.horizontal, 10)
-                                }
-                            }
                         }
                         .padding(.vertical, 20)
                         .background(Color.white)
@@ -233,9 +200,16 @@ struct Signup: View {
                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
                         .padding(.horizontal, 20)
                         
+                        Spacer().frame(height: 20)  
                         
                         Button(action: {
-                            signup(email: email, password: password)
+                            Task {
+                                do {
+                                    try await AuthenticationModel().signUp(email: email, password: password)
+                                } catch {
+                                    
+                                }
+                            }
                         }) {
                             Text("Sign Up")
                                 .font(.headline)
@@ -247,62 +221,24 @@ struct Signup: View {
                                 .padding(.horizontal, 20)
                         }
                         
-                        Text("- OR -")
-                            .foregroundColor(.gray)
-                            .padding(.vertical)
-                        
-                        HStack {
-                            Button(action: {
-                                // Google Sign-In Action
-                                Task {
-                                    do {
-                                        try await viewModel.signInGoogle()
-                                        userSignedUp = true
-                                    } catch {
-                                        print(error)
-                                    }
-                                }
-                            }) {
-                                HStack {
-                                    Image("Google") // Google logo placeholder
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                    
-                                    Text("Google")
-                                        .fontWeight(.bold)
-                                }
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.white)
-                                .foregroundColor(.black)
-                                .cornerRadius(5)
-                                .shadow(radius: 1)
-                            }
-                            
-                            Button(action: {
-                                // UMD Sign-in action
-                            }) {
-                                HStack {
-                                    Image("UMD") // UMD logo placeholder
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                    Text("Directory ID")
-                                        .fontWeight(.bold)
-                                }
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.red.opacity(0.8))
-                                .foregroundColor(.white)
-                                .cornerRadius(5)
-                                .shadow(radius: 3)
-                            }
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 50)
+                        Spacer()
                     }
                 }
             }
+            .navigationBarBackButtonHidden(true)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(.white)
+                    }
+                    
+                }
+                
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
                     
