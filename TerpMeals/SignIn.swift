@@ -15,7 +15,7 @@ struct SignIn: View {
         if(clickedSignUp){
             SignUp()
         } else if(openHome){
-            HomeView()
+            ContentView()
         } else{
             VStack {
                 HeaderView()
