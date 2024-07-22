@@ -89,6 +89,7 @@ struct Intro: View {
                 Spacer().frame(height: 40)
             }
         }
+        .background(.ultraThickMaterial)
     }
 }
 
@@ -181,7 +182,7 @@ struct LoginSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.white)
+                    .background(Color.yellow)
                     .foregroundColor(.black)
                     .cornerRadius(10)
                     .shadow(radius: 1)
@@ -192,7 +193,7 @@ struct LoginSheet: View {
             
             Spacer().frame(height: 30)
         }
-        .background(.yellow.opacity(0.1))
+        .background(.ultraThickMaterial)
     }
 }
 

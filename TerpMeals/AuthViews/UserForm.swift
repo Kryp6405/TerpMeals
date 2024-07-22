@@ -20,95 +20,106 @@ extension View {
     }
 }
 
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
-    var sourceType: UIImagePickerController.SourceType = .photoLibrary
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        picker.sourceType = sourceType
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-    
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: ImagePicker
-        
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as? UIImage {
-                parent.image = uiImage
-            }
-            picker.dismiss(animated: true)
-        }
-    }
-}
-
 struct Q1: View {
+    @State private var selected = [false, false, false]
     @Environment(\.presentationMode) var presentationMode
 
+    var allFalseValues: Bool {
+        selected.allSatisfy { $0 == false }
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Text("Let's get started!")
+                    .fontWeight(.thin)
+                    .padding(.bottom, 10)
+                
                 Text("Which dining hall do you prefer?")
+                    .font(.largeTitle)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.center)
                             
                 Spacer()
                 
-                VStack {
-                    Button(action: {}) {
-                        Text("251 North")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                            .shadow(radius: 1)
-                    }
+                VStack(spacing: 15) {
                     
+                    Text("251 North")
+                        .font(.headline)
+                        .fontWeight(.light)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(selected[0] ? .white : .red)
+                        .foregroundColor(selected[0] ? .red : .white)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(selected[0] ? .red : .white, lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            selected[0].toggle()
+                            selected[1] = false
+                            selected[2] = false
+                        }
                     
-                    Button(action: {}){
-                        Text("The Yahentimitsi")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                            .shadow(radius: 1)
-                    }
+                    Text("The Yahentimitsi")
+                        .font(.headline)
+                        .fontWeight(.light)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(selected[1] ? .white : .red)
+                        .foregroundColor(selected[1] ? .red : .white)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(selected[1] ? .red : .white, lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            selected[1].toggle()
+                            selected[0] = false
+                            selected[2] = false
+                        }
+
+                    Text("South Diner")
+                        .font(.headline)
+                        .fontWeight(.light)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(selected[2] ? .white : .red)
+                        .foregroundColor(selected[2] ? .red : .white)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(selected[2] ? .red : .white, lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            selected[2].toggle()
+                            selected[1] = false
+                            selected[0] = false
+                        }
                     
-                    Button(action: {}){
-                        Text("South Diner")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                            .shadow(radius: 1)
-                    }
                 }
+                .padding(.horizontal, 20)
                 
                 Spacer()
                 
                 NavigationLink(destination: Q2()){
                     Text("Next")
+                        .font(.headline)
+                        .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(selected[0] || selected[1] || selected[2] ? .yellow : .gray.opacity(0.2))
+                        .foregroundColor(selected[0] || selected[1] || selected[2] ? .white : .black)
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
-
+                .padding(.horizontal, 20)
+                .disabled(allFalseValues)
+                
             }
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -124,6 +135,16 @@ struct Q1: View {
                     
                 }
                 
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 10) {
+                        ForEach(0..<6) { i in
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(i == 0 ? .yellow : .gray.opacity(0.2))
+                                .frame(width: i == 0 ? 50 : 25, height: 5)
+                        }
+                    }
+                }
+                
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
                     
@@ -136,47 +157,79 @@ struct Q1: View {
                 }
             }
         }
+        .background(.ultraThickMaterial)
+    }
+}
+
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        var chunks = [[Element]]()
+        for index in stride(from: 0, to: count, by: size) {
+            let chunk = Array(self[index..<Swift.min(index + size, count)])
+            chunks.append(chunk)
+        }
+        return chunks
     }
 }
 
 struct Q2: View {
     @Environment(\.presentationMode) var presentationMode
     
-    let dietaryOptions = [
-        ["Dairy", "Nuts", "Eggs", "Sesame", "Soy", "Fish"],
-        ["Gluten", "Shellfish", "Vegetarian", "Vegan", "Halal", "None"]
-    ]
-    
+    @State private var dietaryOptions: [String: Bool] = [
+            "Dairy": false,
+            "Nuts": false,
+            "Eggs": false,
+            "Sesame": false,
+            "Soy": false,
+            "Fish": false,
+            "Gluten": false,
+            "Shellfish": false,
+            "Vegetarian": false,
+            "Vegan": false,
+            "Halal": false,
+            "None": false
+        ]
+
     var body: some View {
         NavigationStack {
             VStack {
                 Text("Let's get to know you better!")
-                Text("What are your dietary restrictions or allergies? Select all that apply.")
+                    .fontWeight(.thin)
+                    .padding(.bottom, 10)
+                
+                Text("What are your dietary restrictions or allergies?\nSelect all that apply.")
+                    .font(.title)
+                    .fontWeight(.medium)
                     .multilineTextAlignment(.center)
                             
                 Spacer()
                 
-                HStack {
-                    ForEach(dietaryOptions, id: \.self) { column in
-                        VStack {
+                HStack(spacing: 20) {
+                    ForEach(Array(dietaryOptions.keys).chunked(into: 6), id: \.self) { column in
+                        VStack(spacing: 15) {
                             ForEach(column, id: \.self) { option in
-                                DietaryButton(text: option)
+                                DietaryButton(dietaryOptions: $dietaryOptions, text: option)
                             }
                         }
                     }
                 }
+                .padding(.horizontal, 20)
                 
                 Spacer()
                 
-                NavigationLink(destination: Q3()) {
+                NavigationLink(destination: Q3()){
                     Text("Next")
+                        .font(.headline)
+                        .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(dietaryOptions.contains { $0.value } ? .yellow : .gray.opacity(0.2))
+                        .foregroundColor(dietaryOptions.contains { $0.value } ? .white : .black)
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
+                .padding(.horizontal, 20)
+                .disabled(!dietaryOptions.contains { $0.value })
             }
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -190,6 +243,17 @@ struct Q2: View {
                             .foregroundColor(.red)
                     }
                 }
+                
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 10) {
+                        ForEach(0..<6) { i in
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(i == 1 ? .yellow : .gray.opacity(0.2))
+                                .frame(width: i == 1 ? 50 : 25, height: 5)
+                        }
+                    }
+                }
+                
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
                     Button(action: {
@@ -201,20 +265,49 @@ struct Q2: View {
                 }
             }
         }
+        .background(.ultraThickMaterial)
     }
     
     struct DietaryButton: View {
+        @Binding var dietaryOptions: [String: Bool]
         let text: String
         
         var body: some View {
-            Button(action: {}) {
+            HStack {
+                Spacer()
                 Text(text)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                    .shadow(radius: 1)
+                Spacer()
+                if dietaryOptions[text]! {
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 12)
+                        .foregroundColor(.red)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(dietaryOptions[text]! ? .white : .red)
+            .foregroundColor(dietaryOptions[text]! ? .red : .white)
+            .cornerRadius(10)
+            .shadow(radius: 1)
+            .overlay(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(dietaryOptions[text]! ? .red : .white, lineWidth: 2)
+                }
+            )
+            .onTapGesture {
+                if(text == "None"){
+                    for key in dietaryOptions.keys {
+                        dietaryOptions[key] = (key == "None")
+                    }
+                } else {
+                    dietaryOptions[text]?.toggle()
+                    if dietaryOptions[text] == true {
+                        dietaryOptions["None"] = false
+                    }
+                }
             }
         }
     }
@@ -223,50 +316,83 @@ struct Q2: View {
 
 
 struct Q3: View {
+    @State private var selected: [Bool] = [false, false]
     @Environment(\.presentationMode) var presentationMode
 
+    var allFalseValues: Bool {
+        selected.allSatisfy { $0 == false }
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Text("We can help you!")
-                Text("Which sex should we consider when calculating your personalized recommendations?")
+                    .fontWeight(.thin)
+                    .padding(.bottom, 10)
+                
+                Text("Which sex should we consider when calculating your recommendations?")
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.center)
                             
                 Spacer()
                 
-                VStack {
-                    Button(action: {}) {
-                        Text("Male")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                            .shadow(radius: 1)
-                    }
+                VStack(spacing: 15) {
+                    Text("Female")
+                        .font(.headline)
+                        .fontWeight(.light)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(selected[0] ? .white : .red)
+                        .foregroundColor(selected[0] ? .red : .white)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(selected[0] ? .red : .white, lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            selected[0].toggle()
+                            selected[1] = false
+                        }
                     
                     
-                    Button(action: {}){
-                        Text("Female")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                            .shadow(radius: 1)
-                    }
+                    Text("Male")
+                        .font(.headline)
+                        .fontWeight(.light)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(selected[1] ? .white : .red)
+                        .foregroundColor(selected[1] ? .red : .white)
+                        .cornerRadius(10)
+                        .shadow(radius: 1)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(selected[1] ? .red : .white, lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            selected[1].toggle()
+                            selected[0] = false
+                        }
+                    
                 }
+                .padding(.horizontal, 20)
                 
                 Spacer()
                 
                 NavigationLink(destination: Q4()){
                     Text("Next")
+                        .font(.headline)
+                        .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(selected[0] || selected[1] ? .yellow : .gray.opacity(0.2))
+                        .foregroundColor(selected[0] || selected[1] ? .white : .black)
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
+                .padding(.horizontal, 20)
+                .disabled(allFalseValues)
 
             }
             .navigationBarBackButtonHidden(true)
@@ -281,6 +407,16 @@ struct Q3: View {
                             .foregroundColor(.red)
                     }
                     
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 10) {
+                        ForEach(0..<6) { i in
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(i == 2 ? .yellow : .gray.opacity(0.2))
+                                .frame(width: i == 2 ? 50 : 25, height: 5)
+                        }
+                    }
                 }
                 
                 ToolbarItemGroup(placement: .keyboard) {
@@ -295,48 +431,121 @@ struct Q3: View {
                 }
             }
         }
+        .background(.ultraThickMaterial)
     }
 }
 
 struct Q4: View {
-    @State private var month: String = ""
-    @State private var day: String = ""
-    @State private var year: String = ""
-    @State private var dob: Date = Date()
+    @State private var selectedMonth = "July"
+    @State private var selectedDay = 18
+    @State private var selectedYear = 2024
     @Environment(\.presentationMode) var presentationMode
+
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    let years = Array(1980...2024)
+    
+    func isLeapYear(_ year: Int) -> Bool {
+        (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+    }
+    
+    var days: [Int] {
+            switch selectedMonth {
+            case "January", "March", "May", "July", "August", "October", "December":
+                return Array(1...31)
+            case "April", "June", "September", "November":
+                return Array(1...30)
+            case "February":
+                return isLeapYear(selectedYear) ? Array(1...29) : Array(1...28)
+            default:
+                return Array(1...31)
+            }
+        }
+    
+    let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        return formatter
+    }()
     
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Next step")
-                Text("What is your birthdate?")
-                            
-                Spacer()
+                Text("Next steps...")
+                    .fontWeight(.thin)
+                    .padding(.bottom, 10)
                 
+                Text("What is your birthdate?")
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+            
                 HStack {
-                    DatePicker(
-                        "Select Date",
-                        selection: $dob,
-                        displayedComponents: [.date]
-                    )
-                    .datePickerStyle(WheelDatePickerStyle())
-                    .labelsHidden()
+                    Picker("Month", selection: $selectedMonth) {
+                        ForEach(months, id: \.self) { month in
+                            Text(month)
+                                .tag(month)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(maxWidth: .infinity)
                     
+                    Picker("Day", selection: $selectedDay) {
+                        ForEach(days, id: \.self) { day in
+                            Text("\(day)")
+                                .tag(day)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(maxWidth: .infinity)
+                    
+                    Picker("Year", selection: $selectedYear) {
+                        ForEach(years, id: \.self) { year in
+                            Text(numberFormatter.string(from: NSNumber(value: year)) ?? "\(year)")
+                                .tag(year)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(maxWidth: .infinity)
                 }
+                .padding()
+                .background(
+                    ZStack {
+                        Color.white
+                        
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.red)
+                            .frame(height: 40)
+                            .padding(.horizontal, 15)
+                    }
+                    .padding(.horizontal, 20)
+                )
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.red, lineWidth: 2)
+                        .padding(.horizontal, 20)
+                )
+            
                 
                 Spacer()
                 
                 NavigationLink(destination: Q5()){
                     Text("Next")
+                        .font(.headline)
+                        .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(.yellow)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
+                .padding(.horizontal, 20)
 
             }
+            .background(.ultraThickMaterial)
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -349,6 +558,16 @@ struct Q4: View {
                             .foregroundColor(.red)
                     }
                     
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 10) {
+                        ForEach(0..<6) { i in
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(i == 3 ? .yellow : .gray.opacity(0.2))
+                                .frame(width: i == 3 ? 50 : 25, height: 5)
+                        }
+                    }
                 }
                 
                 ToolbarItemGroup(placement: .keyboard) {
@@ -568,7 +787,41 @@ struct Q6: View {
 
 
 
+
 //MARK: Current UserForm
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var image: UIImage?
+    var sourceType: UIImagePickerController.SourceType = .photoLibrary
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        picker.sourceType = sourceType
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: ImagePicker
+        
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let uiImage = info[.originalImage] as? UIImage {
+                parent.image = uiImage
+            }
+            picker.dismiss(animated: true)
+        }
+    }
+}
+
 struct UserForm: View {
     @State private var profileImage: UIImage?
     @State private var firstName: String = ""
@@ -768,10 +1021,10 @@ struct UserForm: View {
 
 struct UserForm_Previews: PreviewProvider {
     static var previews: some View {
-        Q5()
+        Q4()
     }
 }
 
 #Preview {
-    Q5()
+    Q4()
 }
