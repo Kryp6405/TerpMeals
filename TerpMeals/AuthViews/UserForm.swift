@@ -20,6 +20,7 @@ extension View {
     }
 }
 
+//MARK: Q1
 struct Q1: View {
     @State private var selected = [false, false, false]
     @Environment(\.presentationMode) var presentationMode
@@ -172,6 +173,7 @@ extension Array {
     }
 }
 
+//MARK: Q2
 struct Q2: View {
     @Environment(\.presentationMode) var presentationMode
     
@@ -314,7 +316,7 @@ struct Q2: View {
 }
 
 
-
+//MARK: Q3
 struct Q3: View {
     @State private var selected: [Bool] = [false, false]
     @Environment(\.presentationMode) var presentationMode
@@ -435,6 +437,7 @@ struct Q3: View {
     }
 }
 
+//MARK: Q4
 struct Q4: View {
     @State private var selectedMonth = "July"
     @State private var selectedDay = 18
@@ -482,10 +485,13 @@ struct Q4: View {
                 Spacer()
             
                 HStack {
+                    Spacer().frame(width: 20)
+
                     Picker("Month", selection: $selectedMonth) {
                         ForEach(months, id: \.self) { month in
                             Text(month)
                                 .tag(month)
+                                .foregroundColor(month == selectedMonth ? .white : .primary)
                         }
                     }
                     .pickerStyle(.wheel)
@@ -495,6 +501,7 @@ struct Q4: View {
                         ForEach(days, id: \.self) { day in
                             Text("\(day)")
                                 .tag(day)
+                                .foregroundColor(day == selectedDay ? .white : .primary)
                         }
                     }
                     .pickerStyle(.wheel)
@@ -504,10 +511,13 @@ struct Q4: View {
                         ForEach(years, id: \.self) { year in
                             Text(numberFormatter.string(from: NSNumber(value: year)) ?? "\(year)")
                                 .tag(year)
+                                .foregroundColor(year == selectedYear ? .white : .primary)
                         }
                     }
                     .pickerStyle(.wheel)
                     .frame(maxWidth: .infinity)
+                    
+                    Spacer().frame(width: 20)
                 }
                 .padding()
                 .background(
@@ -515,7 +525,7 @@ struct Q4: View {
                         Color.white
                         
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.red)
+                            .fill(Color.red.opacity(0.8))
                             .frame(height: 40)
                             .padding(.horizontal, 15)
                     }
@@ -585,11 +595,12 @@ struct Q4: View {
     }
 }
 
+//MARK: Q5
 struct Q5: View {
     @State private var ft = 5
-    @State private var inc = 7
-    @State private var cm = 170
-    @State private var mm = 0
+    @State private var inc = 8
+    @State private var cm = 177
+    @State private var mm = 6
     @State private var isImperial: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
@@ -601,74 +612,156 @@ struct Q5: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Next step")
+                Text("Next steps...")
+                    .fontWeight(.thin)
+                    .padding(.bottom, 10)
+                
                 Text("What is your height?")
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.center)
                             
                 Spacer()
-                
-                Picker("Units", selection: $isImperial) {
-                    Text("ft/in").tag(false)
-                    Text("cm").tag(true)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
 
                 if !isImperial {
                     HStack {
-                        Picker("Feet", selection: $ft) {
-                            ForEach(feetRange, id: \.self) { feet in
-                                Text("\(feet) ft")
-                            }
-                        }
-                        .pickerStyle(WheelPickerStyle())
-                        .frame(width: 100, height: 150)
-                        .clipped()
+                        Spacer().frame(width: 20)
 
-                        Picker("Inches", selection: $inc) {
-                            ForEach(inchesRange, id: \.self) { inches in
-                                Text("\(inches) in")
+                        HStack {
+                            Picker("Feet", selection: $ft) {
+                                ForEach(feetRange, id: \.self) { feet in
+                                    Text("\(feet)")
+                                        .tag(feet)
+                                        .foregroundColor(feet == ft ? .white : .primary)
+                                }
                             }
+                            .pickerStyle(.wheel)
+                            .frame(maxWidth: .infinity)
+                            Text("'")
+                                .foregroundColor(.white)
+                            Spacer()
                         }
-                        .pickerStyle(WheelPickerStyle())
-                        .frame(width: 100, height: 150)
-                        .clipped()
+                        
+                        HStack {
+                            Picker("Inches", selection: $inc) {
+                                ForEach(inchesRange, id: \.self) { inch in
+                                    Text("\(inch)")
+                                        .tag(inch)
+                                        .foregroundColor(inch == inc ? .white : .primary)
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                            .frame(maxWidth: .infinity)
+                            Text("\"")
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
+                        
+                        Picker("Units", selection: $isImperial) {
+                            Text("ft/in")
+                                .tag(false)
+                                .foregroundColor(.white)
+                            Text("cm")
+                                .tag(true)
+                        }
+                        .pickerStyle(.wheel)
+                        .foregroundColor(.white)
+                        
+                        Spacer().frame(width: 20)
                     }
+                    .padding()
+                    .background(
+                        ZStack {
+                            Color.white
+                            
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.red.opacity(0.8))
+                                .frame(height: 40)
+                                .padding(.horizontal, 15)
+                        }
+                        .padding(.horizontal, 20)
+                    )
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.red, lineWidth: 2)
+                            .padding(.horizontal, 20)
+                    )
                 } else {
-                    // Metric View
                     HStack {
-                        Picker("Centimeters", selection: $cm) {
-                            ForEach(centimetersRange, id: \.self) { cm in
-                                Text("\(cm) cm")
-                            }
-                        }
-                        .pickerStyle(WheelPickerStyle())
-                        .frame(width: 100, height: 150)
-                        .clipped()
+                        Spacer().frame(width: 20)
 
+                        HStack {
+                            Picker("Centimeters", selection: $cm) {
+                                ForEach(centimetersRange, id: \.self) { cmt in
+                                    Text("\(cmt)")
+                                        .tag(cmt)
+                                        .foregroundColor(cmt == cm ? .white : .primary)
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                            .frame(maxWidth: .infinity)
+                            Text(".")
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
+                        
                         Picker("Millimeters", selection: $mm) {
-                            ForEach(millimetersRange, id: \.self) { mm in
-                                Text("\(mm) mm")
+                            ForEach(millimetersRange, id: \.self) { mmt in
+                                Text("\(mmt)")
+                                    .tag(mmt)
+                                    .foregroundColor(mmt == mm ? .white : .primary)
                             }
                         }
-                        .pickerStyle(WheelPickerStyle())
-                        .frame(width: 100, height: 150)
-                        .clipped()
+                        .pickerStyle(.wheel)
+                        .frame(maxWidth: .infinity)
+                        
+                        Picker("Units", selection: $isImperial) {
+                            Text("ft/in").tag(false)
+                            Text("cm").tag(true)
+                                .foregroundColor(.white)
+                        }
+                        .pickerStyle(.wheel)
+                        .foregroundColor(.white)
+                        
+                        Spacer().frame(width: 20)
                     }
+                    .padding()
+                    .background(
+                        ZStack {
+                            Color.white
+                            
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.red.opacity(0.8))
+                                .frame(height: 40)
+                                .padding(.horizontal, 15)
+                        }
+                        .padding(.horizontal, 20)
+                    )
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.red, lineWidth: 2)
+                            .padding(.horizontal, 20)
+                    )
                 }
                 
                 Spacer()
                 
                 NavigationLink(destination: Q6()){
                     Text("Next")
+                        .font(.headline)
+                        .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(.yellow)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
-
+                .padding(.horizontal, 20)
             }
+            .background(.ultraThickMaterial)
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -681,6 +774,16 @@ struct Q5: View {
                             .foregroundColor(.red)
                     }
                     
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 10) {
+                        ForEach(0..<6) { i in
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(i == 4 ? .yellow : .gray.opacity(0.2))
+                                .frame(width: i == 4 ? 50 : 25, height: 5)
+                        }
+                    }
                 }
                 
                 ToolbarItemGroup(placement: .keyboard) {
@@ -698,64 +801,166 @@ struct Q5: View {
     }
 }
 
+//MARK: Q6
 struct Q6: View {
     @State private var lbs = 150
+    @State private var lbsInc = 7
     @State private var kg = 70
+    @State private var g = 3
     @State private var isImperial: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     let poundsRange = Array(50...400)
+    let poundsIncRange = Array(0...9)
     let kilogramsRange = Array(20...180)
+    let gramsRange = Array(0...9)
     
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Next step")
-                Text("What is your height?")
+                Text("Next steps...")
+                    .fontWeight(.thin)
+                    .padding(.bottom, 10)
+                
+                Text("What is your weight?")
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.center)
                             
                 Spacer()
-                // Unit Toggle
-                Picker("Units", selection: $isImperial) {
-                    Text("Imperial").tag(false)
-                    Text("Metric").tag(true)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
-
-                // Imperial View
+                
                 if !isImperial {
-                    Picker("Pounds", selection: $lbs) {
-                        ForEach(poundsRange, id: \.self) { lbs in
-                            Text("\(lbs) lbs")
+                    HStack {
+                        Spacer().frame(width: 20)
+
+                        HStack {
+                            Picker("Pounds", selection: $lbs) {
+                                ForEach(poundsRange, id: \.self) { lb in
+                                    Text("\(lb)")
+                                        .tag(lb)
+                                        .foregroundColor(lb == lbs ? .white : .primary)
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                            .frame(maxWidth: .infinity)
+                            Text(".")
+                                .foregroundColor(.white)
+                            Spacer()
                         }
+                        
+                        Picker("Pound Inc.", selection: $lbsInc) {
+                            ForEach(poundsIncRange, id: \.self) { lbIn in
+                                Text("\(lbIn)")
+                                    .tag(lbIn)
+                                    .foregroundColor(lbIn == lbsInc ? .white : .primary)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(maxWidth: .infinity)
+                        
+                        Picker("Units", selection: $isImperial) {
+                            Text("lbs").tag(false)
+                            Text("kg").tag(true)
+                                .foregroundColor(.white)
+                        }
+                        .pickerStyle(.wheel)
+                        .foregroundColor(.white)
+                        
+                        Spacer().frame(width: 20)
                     }
-                    .pickerStyle(WheelPickerStyle())
-                    .frame(width: 150, height: 150)
-                    .clipped()
+                    .padding()
+                    .background(
+                        ZStack {
+                            Color.white
+                            
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.red.opacity(0.8))
+                                .frame(height: 40)
+                                .padding(.horizontal, 15)
+                        }
+                        .padding(.horizontal, 20)
+                    )
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.red, lineWidth: 2)
+                            .padding(.horizontal, 20)
+                    )
                 } else {
-                    // Metric View
-                    Picker("Kilograms", selection: $kg) {
-                        ForEach(kilogramsRange, id: \.self) { kg in
-                            Text("\(kg) kg")
+                    HStack {
+                        Spacer().frame(width: 20)
+
+                        HStack {
+                            Picker("Kilograms", selection: $kg) {
+                                ForEach(kilogramsRange, id: \.self) { kgs in
+                                    Text("\(kgs)")
+                                        .tag(kgs)
+                                        .foregroundColor(kgs == kg ? .white : .primary)
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                            .frame(maxWidth: .infinity)
+                            Text(".")
+                                .foregroundColor(.white)
+                            Spacer()
                         }
+                        
+                        Picker("Grams", selection: $g) {
+                            ForEach(gramsRange, id: \.self) { gs in
+                                Text("\(gs)")
+                                    .tag(gs)
+                                    .foregroundColor(gs == g ? .white : .primary)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(maxWidth: .infinity)
+                        
+                        Picker("Units", selection: $isImperial) {
+                            Text("lbs").tag(false)
+                            Text("kg").tag(true)
+                                .foregroundColor(.white)
+                        }
+                        .pickerStyle(.wheel)
+                        .foregroundColor(.white)
+                        
+                        Spacer().frame(width: 20)
                     }
-                    .pickerStyle(WheelPickerStyle())
-                    .frame(width: 150, height: 150)
-                    .clipped()
+                    .padding()
+                    .background(
+                        ZStack {
+                            Color.white
+                            
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.red.opacity(0.8))
+                                .frame(height: 40)
+                                .padding(.horizontal, 15)
+                        }
+                        .padding(.horizontal, 20)
+                    )
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.red, lineWidth: 2)
+                            .padding(.horizontal, 20)
+                    )
                 }
 
                 Spacer()
                 
                 NavigationLink(destination: SignupPrev()){
                     Text("Next")
+                        .font(.headline)
+                        .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(.yellow)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
+                .padding(.horizontal, 20)
             }
+            .background(.ultraThickMaterial)
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -768,6 +973,16 @@ struct Q6: View {
                             .foregroundColor(.red)
                     }
                     
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 10) {
+                        ForEach(0..<6) { i in
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(i == 5 ? .yellow : .gray.opacity(0.2))
+                                .frame(width: i == 5 ? 50 : 25, height: 5)
+                        }
+                    }
                 }
                 
                 ToolbarItemGroup(placement: .keyboard) {
@@ -785,10 +1000,7 @@ struct Q6: View {
     }
 }
 
-
-
-
-//MARK: Current UserForm
+//MARK: Old UserForm
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
