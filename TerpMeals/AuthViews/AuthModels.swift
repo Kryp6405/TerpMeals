@@ -100,4 +100,52 @@ class AuthenticationModel: ObservableObject {
     func deleteAccount() {
         
     }
+    
+    func checkUserExists(completion: @escaping (Bool, String?) -> Void) {
+        if let currentUser = Auth.auth().currentUser {
+            let uid = currentUser.uid
+            let db = Firestore.firestore()
+            let userRef = db.collection("users").document(uid)
+            
+            userRef.getDocument { document, error in
+                if let document = document, document.exists {
+                    // Document exists, user exists in the database
+                    completion(true, uid)
+                } else {
+                    // Document does not exist or there was an error
+                    if let error = error {
+                        print("Error fetching document: \(error)")
+                    }
+                    completion(false, nil)
+                }
+            }
+        } else {
+            completion(false, nil)
+        }
+    }
+    
+    func saveUserInfo(userData: UserData, completion: @escaping (Error?) -> Void){
+        let db = Firestore.firestore()
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]))
+            return
+        }
+        
+        let data: [String: Any] = [
+            "preferredDiningHall": userData.preferredDiningHall!,
+            "dietaryRestrictions": userData.dietaryRestrictions,
+            "gender": userData.gender!,
+            "birthday": userData.birthday!,
+            "height": userData.height!,
+            "heightMeasurement": userData.heightMeasurement!,
+            "weight": userData.weight!,
+            "weightMeasurement": userData.weightMeasurement!,
+            "goal": userData.goal!,
+            "activityLevel": userData.activityLevel!
+        ]
+        
+        db.collection("users").document(userId).setData(data) { error in
+            completion(error)
+        }
+    }
 }
