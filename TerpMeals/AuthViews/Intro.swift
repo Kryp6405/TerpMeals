@@ -98,6 +98,7 @@ struct Intro: View {
                 }
             }
             .background(.ultraThickMaterial)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
