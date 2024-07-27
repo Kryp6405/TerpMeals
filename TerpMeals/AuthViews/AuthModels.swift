@@ -136,6 +136,7 @@ class AuthenticationModel: ObservableObject {
             "dietaryRestrictions": userData.dietaryRestrictions,
             "gender": userData.gender!,
             "birthday": userData.birthday!,
+            "age": userData.age!,
             "height": userData.height!,
             "heightMeasurement": userData.heightMeasurement!,
             "weight": userData.weight!,

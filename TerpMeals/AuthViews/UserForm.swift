@@ -29,6 +29,7 @@ class UserData: ObservableObject {
         ]
     @Published var gender: String?
     @Published var birthday: Date?
+    @Published var age: Int?
     @Published var height: Double?
     @Published var heightMeasurement: String?
     @Published var weight: Double?
@@ -598,14 +599,27 @@ struct Q4: View {
                 }
                 .padding(.horizontal, 20)
                 .simultaneousGesture(TapGesture().onEnded {
-                    // Set the birthday in the userData
+                    
                     var components = DateComponents()
                     components.year = selectedYear
                     components.month = months.firstIndex(of: selectedMonth)! + 1
                     components.day = selectedDay
-                    
+
                     if let birthday = Calendar.current.date(from: components) {
                         userData.birthday = birthday
+                        
+                        // Calculate age
+                        let calendar = Calendar.current
+                        let currentDate = Date()
+                        let ageComponents = calendar.dateComponents([.year], from: birthday, to: currentDate)
+                        if let age = ageComponents.year {
+                            print("Age is \(age)")
+                            userData.age = age
+                        } else {
+                            print("Unable to calculate age")
+                        }
+                    } else {
+                        print("Invalid date components")
                     }
                 })
 
