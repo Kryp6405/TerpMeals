@@ -16,6 +16,7 @@ struct Intro: View {
     @State private var showLoginOptions: Bool = false
     @State private var navigateOnLogin: Bool = false
     @State private var navigateToHome: Bool = false
+    @State private var loading: Bool = false
     
     var body: some View {
         if navigateToHome  {
@@ -82,7 +83,7 @@ struct Intro: View {
                         }
                         .padding(.horizontal, 10)
                         .sheet(isPresented: $showLoginOptions){
-                            LoginSheet(showLoginOptions: $showLoginOptions, navigateOnLogin: $navigateOnLogin, navigateToHome: $navigateToHome)
+                            LoginSheet(showLoginOptions: $showLoginOptions, navigateOnLogin: $navigateOnLogin, navigateToHome: $navigateToHome, loading: $loading)
                                 .presentationDetents([.fraction(0.6)])
                                 .presentationDragIndicator(.visible)
                                 .presentationCornerRadius(25)
@@ -99,6 +100,7 @@ struct Intro: View {
             }
             .background(.ultraThickMaterial)
             .navigationBarBackButtonHidden(true)
+            .disabled(loading)
         }
     }
 }
@@ -108,6 +110,7 @@ struct LoginSheet: View {
     @Binding var showLoginOptions: Bool
     @Binding var navigateOnLogin: Bool
     @Binding var navigateToHome: Bool
+    @Binding var loading: Bool
     @StateObject private var viewModel = LoginModel()
     
     var body: some View {
@@ -165,6 +168,7 @@ struct LoginSheet: View {
                     Task {
                         do {
                             try await viewModel.signInGoogle()
+                            loading = true
                             @StateObject var authModel = AuthenticationModel()
                             authModel.checkUserExists { exists, uid in
                                 if exists {

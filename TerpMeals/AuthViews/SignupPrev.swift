@@ -14,6 +14,7 @@ struct SignupPrev: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = LoginModel()
     @State private var navigateToHome = false
+    @State private var loading = false
     
     var body: some View {
         if navigateToHome {
@@ -70,6 +71,7 @@ struct SignupPrev: View {
                             Task {
                                 do {
                                     try await viewModel.signInGoogle()
+                                    loading = true
                                     @StateObject var authModel = AuthenticationModel()
                                     authModel.checkUserExists { exists, uid in
                                         if exists {
@@ -161,6 +163,7 @@ struct SignupPrev: View {
                     }
                 }
             }
+            .disabled(loading)
         }
     }
 }
