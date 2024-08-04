@@ -14,7 +14,11 @@ struct TerpMealsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Intro()
+            if let _ = Auth.auth().currentUser {
+                HomeView()
+            } else {
+                Intro()
+            }
         }
     }
 }
