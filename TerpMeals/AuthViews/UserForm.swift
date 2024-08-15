@@ -20,25 +20,6 @@ extension View {
     }
 }
 
-class UserData: ObservableObject {
-    @Published var preferredDiningHall: String?
-    @Published var dietaryRestrictions: [String: Bool] = [
-            "Dairy": false, "Nuts": false, "Eggs": false, "Sesame": false,
-            "Soy": false, "Fish": false, "Gluten": false, "Shellfish": false,
-            "Vegetarian": false, "Vegan": false, "Halal": false, "None": false
-        ]
-    @Published var gender: String?
-    @Published var birthday: Date?
-    @Published var age: Int?
-    @Published var height: Double?
-    @Published var heightMeasurement: String?
-    @Published var weight: Double?
-    @Published var weightMeasurement: String?
-    @Published var goal: String?
-    @Published var activityLevel: Double?
-    // Add other properties as needed
-}
-
 //MARK: Q1
 struct Q1: View {
     @State private var selected = [false, false, false]
@@ -70,21 +51,19 @@ struct Q1: View {
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[0] ? .white : .red)
-                        .foregroundColor(selected[0] ? .red : .white)
+                        .background(selected[0] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[0] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[0] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[0] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[0].toggle()
                             selected[1] = false
                             selected[2] = false
-                            if selected[0] {
-                                userData.preferredDiningHall = "251 North"
-                            }
+                            userData.preferredDiningHall = "251 North"
                         }
                     
                     Text("The Yahentimitsi")
@@ -92,21 +71,19 @@ struct Q1: View {
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[1] ? .white : .red)
-                        .foregroundColor(selected[1] ? .red : .white)
+                        .background(selected[1] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[1] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[1] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[1] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[1].toggle()
                             selected[0] = false
                             selected[2] = false
-                            if selected[1] {
-                                userData.preferredDiningHall = "The Yahentimitsi"
-                            }
+                            userData.preferredDiningHall = "The Yahentimitsi"
                         }
 
                     Text("South Diner")
@@ -114,21 +91,19 @@ struct Q1: View {
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[2] ? .white : .red)
-                        .foregroundColor(selected[2] ? .red : .white)
+                        .background(selected[2] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[2] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[2] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[2] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[2].toggle()
                             selected[1] = false
                             selected[0] = false
-                            if selected[2] {
-                                userData.preferredDiningHall = "South Diner"
-                            }
+                            userData.preferredDiningHall = "South Diner"
                         }
                     
                 }
@@ -143,7 +118,7 @@ struct Q1: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(selected[0] || selected[1] || selected[2] ? .yellow : .gray.opacity(0.2))
-                        .foregroundColor(selected[0] || selected[1] || selected[2] ? .white : .black)
+                        .foregroundColor(selected[0] || selected[1] || selected[2] ? Color(.light) :Color(.dark))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
@@ -151,6 +126,7 @@ struct Q1: View {
                 .disabled(allFalseValues)
                 
             }
+            .background(Color(.light))
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -160,7 +136,7 @@ struct Q1: View {
                         }
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                     
                 }
@@ -182,12 +158,11 @@ struct Q1: View {
                         hideKeyboard()
                     }) {
                         Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
             }
         }
-        .background(.ultraThickMaterial)
     }
 }
 
@@ -237,7 +212,7 @@ struct Q2: View {
                 Spacer()
                 
                 HStack(spacing: 20) {
-                    ForEach(Array(dietaryOptions.keys).chunked(into: 6), id: \.self) { column in
+                    ForEach(Array(dietaryOptions.keys.sorted()).chunked(into: 6), id: \.self) { column in
                         VStack(spacing: 15) {
                             ForEach(column, id: \.self) { option in
                                 DietaryButton(userData: userData, dietaryOptions: $dietaryOptions, text: option)
@@ -256,7 +231,7 @@ struct Q2: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(dietaryOptions.contains { $0.value } ? .yellow : .gray.opacity(0.2))
-                        .foregroundColor(dietaryOptions.contains { $0.value } ? .white : .black)
+                        .foregroundColor(dietaryOptions.contains { $0.value } ? Color(.light) :Color(.dark))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
@@ -272,7 +247,7 @@ struct Q2: View {
                         }
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
                 
@@ -292,12 +267,12 @@ struct Q2: View {
                         hideKeyboard()
                     }) {
                         Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
             }
         }
-        .background(.ultraThickMaterial)
+        .background(Color(.light))
         .onAppear {
             userData.dietaryRestrictions = dietaryOptions
         }
@@ -318,19 +293,19 @@ struct Q2: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 12)
-                        .foregroundColor(.red)
+                        .foregroundColor(Color(.accent))
                 }
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(dietaryOptions[text]! ? .white : .red)
-            .foregroundColor(dietaryOptions[text]! ? .red : .white)
+            .background(dietaryOptions[text]! ? Color(.light) : Color(.accent))
+            .foregroundColor(dietaryOptions[text]! ? Color(.accent) : Color(.light))
             .cornerRadius(10)
             .shadow(radius: 1)
             .overlay(
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(dietaryOptions[text]! ? .red : .white, lineWidth: 2)
+                        .stroke(dietaryOptions[text]! ? Color(.accent) : Color(.light), lineWidth: 2)
                 }
             )
             .onTapGesture {
@@ -383,13 +358,13 @@ struct Q3: View {
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[0] ? .white : .red)
-                        .foregroundColor(selected[0] ? .red : .white)
+                        .background(selected[0] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[0] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[0] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[0] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[0].toggle()
@@ -405,13 +380,13 @@ struct Q3: View {
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[1] ? .white : .red)
-                        .foregroundColor(selected[1] ? .red : .white)
+                        .background(selected[1] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[1] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[1] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[1] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[1].toggle()
@@ -433,7 +408,7 @@ struct Q3: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(selected[0] || selected[1] ? .yellow : .gray.opacity(0.2))
-                        .foregroundColor(selected[0] || selected[1] ? .white : .black)
+                        .foregroundColor(selected[0] || selected[1] ? Color(.light) :Color(.dark))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
@@ -441,6 +416,7 @@ struct Q3: View {
                 .disabled(allFalseValues)
 
             }
+            .background(Color(.light))
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -450,7 +426,7 @@ struct Q3: View {
                         }
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                     
                 }
@@ -472,12 +448,11 @@ struct Q3: View {
                         hideKeyboard()
                     }) {
                         Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
             }
         }
-        .background(.ultraThickMaterial)
     }
 }
 
@@ -523,7 +498,7 @@ struct Q4: View {
                     .padding(.bottom, 10)
                 
                 Text("What is your birthdate?")
-                    .font(.title)
+                    .font(.largeTitle)
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
                 
@@ -536,7 +511,7 @@ struct Q4: View {
                         ForEach(months, id: \.self) { month in
                             Text(month)
                                 .tag(month)
-                                .foregroundColor(month == selectedMonth ? .white : .primary)
+                                .foregroundColor(month == selectedMonth ? Color(.light) : .primary)
                         }
                     }
                     .pickerStyle(.wheel)
@@ -546,7 +521,7 @@ struct Q4: View {
                         ForEach(days, id: \.self) { day in
                             Text("\(day)")
                                 .tag(day)
-                                .foregroundColor(day == selectedDay ? .white : .primary)
+                                .foregroundColor(day == selectedDay ? Color(.light) : .primary)
                         }
                     }
                     .pickerStyle(.wheel)
@@ -556,7 +531,7 @@ struct Q4: View {
                         ForEach(years, id: \.self) { year in
                             Text(numberFormatter.string(from: NSNumber(value: year)) ?? "\(year)")
                                 .tag(year)
-                                .foregroundColor(year == selectedYear ? .white : .primary)
+                                .foregroundColor(year == selectedYear ? Color(.light) : .primary)
                         }
                     }
                     .pickerStyle(.wheel)
@@ -567,10 +542,10 @@ struct Q4: View {
                 .padding()
                 .background(
                     ZStack {
-                        Color.white
+                        Color(.light)
                         
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.red.opacity(0.8))
+                            .fill(Color(.accent).opacity(0.8))
                             .frame(height: 40)
                             .padding(.horizontal, 15)
                     }
@@ -579,7 +554,7 @@ struct Q4: View {
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.red, lineWidth: 2)
+                        .stroke(Color(.accent), lineWidth: 2)
                         .padding(.horizontal, 20)
                 )
             
@@ -593,7 +568,7 @@ struct Q4: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(.yellow)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
@@ -624,7 +599,7 @@ struct Q4: View {
                 })
 
             }
-            .background(.ultraThickMaterial)
+            .background(Color(.light))
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -634,7 +609,7 @@ struct Q4: View {
                         }
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                     
                 }
@@ -656,7 +631,7 @@ struct Q4: View {
                         hideKeyboard()
                     }) {
                         Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
             }
@@ -687,7 +662,7 @@ struct Q5: View {
                     .padding(.bottom, 10)
                 
                 Text("What is your height?")
-                    .font(.title)
+                    .font(.largeTitle)
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
                             
@@ -702,13 +677,13 @@ struct Q5: View {
                                 ForEach(feetRange, id: \.self) { feet in
                                     Text("\(feet)")
                                         .tag(feet)
-                                        .foregroundColor(feet == ft ? .white : .primary)
+                                        .foregroundColor(feet == ft ? Color(.light) : .primary)
                                 }
                             }
                             .pickerStyle(.wheel)
                             .frame(maxWidth: .infinity)
                             Text("'")
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                             Spacer()
                         }
                         
@@ -717,35 +692,35 @@ struct Q5: View {
                                 ForEach(inchesRange, id: \.self) { inch in
                                     Text("\(inch)")
                                         .tag(inch)
-                                        .foregroundColor(inch == inc ? .white : .primary)
+                                        .foregroundColor(inch == inc ? Color(.light) : .primary)
                                 }
                             }
                             .pickerStyle(.wheel)
                             .frame(maxWidth: .infinity)
                             Text("\"")
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                             Spacer()
                         }
                         
                         Picker("Units", selection: $isImperial) {
                             Text("ft/in")
                                 .tag(false)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                             Text("cm")
                                 .tag(true)
                         }
                         .pickerStyle(.wheel)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.light))
                         
                         Spacer().frame(width: 20)
                     }
                     .padding()
                     .background(
                         ZStack {
-                            Color.white
+                            Color(.light)
                             
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.red.opacity(0.8))
+                                .fill(Color(.accent).opacity(0.8))
                                 .frame(height: 40)
                                 .padding(.horizontal, 15)
                         }
@@ -754,7 +729,7 @@ struct Q5: View {
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.red, lineWidth: 2)
+                            .stroke(Color(.accent), lineWidth: 2)
                             .padding(.horizontal, 20)
                     )
                 } else {
@@ -766,13 +741,13 @@ struct Q5: View {
                                 ForEach(centimetersRange, id: \.self) { cmt in
                                     Text("\(cmt)")
                                         .tag(cmt)
-                                        .foregroundColor(cmt == cm ? .white : .primary)
+                                        .foregroundColor(cmt == cm ? Color(.light) : .primary)
                                 }
                             }
                             .pickerStyle(.wheel)
                             .frame(maxWidth: .infinity)
                             Text(".")
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                             Spacer()
                         }
                         
@@ -780,7 +755,7 @@ struct Q5: View {
                             ForEach(millimetersRange, id: \.self) { mmt in
                                 Text("\(mmt)")
                                     .tag(mmt)
-                                    .foregroundColor(mmt == mm ? .white : .primary)
+                                    .foregroundColor(mmt == mm ? Color(.light) : .primary)
                             }
                         }
                         .pickerStyle(.wheel)
@@ -789,20 +764,20 @@ struct Q5: View {
                         Picker("Units", selection: $isImperial) {
                             Text("ft/in").tag(false)
                             Text("cm").tag(true)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                         }
                         .pickerStyle(.wheel)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.light))
                         
                         Spacer().frame(width: 20)
                     }
                     .padding()
                     .background(
                         ZStack {
-                            Color.white
+                            Color(.light)
                             
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.red.opacity(0.8))
+                                .fill(Color(.accent).opacity(0.9))
                                 .frame(height: 40)
                                 .padding(.horizontal, 15)
                         }
@@ -811,7 +786,7 @@ struct Q5: View {
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.red, lineWidth: 2)
+                            .stroke(Color(.accent), lineWidth: 2)
                             .padding(.horizontal, 20)
                     )
                 }
@@ -825,7 +800,7 @@ struct Q5: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(.yellow)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
@@ -843,7 +818,7 @@ struct Q5: View {
                     userData.height = height
                 })
             }
-            .background(.ultraThickMaterial)
+            .background(Color(.light))
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -853,7 +828,7 @@ struct Q5: View {
                         }
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                     
                 }
@@ -875,7 +850,7 @@ struct Q5: View {
                         hideKeyboard()
                     }) {
                         Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
             }
@@ -901,12 +876,12 @@ struct Q6: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Next steps...")
+                Text("Getting Closer...")
                     .fontWeight(.thin)
                     .padding(.bottom, 10)
                 
                 Text("What is your weight?")
-                    .font(.title)
+                    .font(.largeTitle)
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
                             
@@ -921,13 +896,13 @@ struct Q6: View {
                                 ForEach(poundsRange, id: \.self) { lb in
                                     Text("\(lb)")
                                         .tag(lb)
-                                        .foregroundColor(lb == lbs ? .white : .primary)
+                                        .foregroundColor(lb == lbs ? Color(.light) : .primary)
                                 }
                             }
                             .pickerStyle(.wheel)
                             .frame(maxWidth: .infinity)
                             Text(".")
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                             Spacer()
                         }
                         
@@ -935,7 +910,7 @@ struct Q6: View {
                             ForEach(poundsIncRange, id: \.self) { lbIn in
                                 Text("\(lbIn)")
                                     .tag(lbIn)
-                                    .foregroundColor(lbIn == lbsInc ? .white : .primary)
+                                    .foregroundColor(lbIn == lbsInc ? Color(.light) : .primary)
                             }
                         }
                         .pickerStyle(.wheel)
@@ -944,20 +919,20 @@ struct Q6: View {
                         Picker("Units", selection: $isImperial) {
                             Text("lbs").tag(false)
                             Text("kg").tag(true)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                         }
                         .pickerStyle(.wheel)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.light))
                         
                         Spacer().frame(width: 20)
                     }
                     .padding()
                     .background(
                         ZStack {
-                            Color.white
+                            Color(.light)
                             
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.red.opacity(0.8))
+                                .fill(Color(.accent).opacity(0.9))
                                 .frame(height: 40)
                                 .padding(.horizontal, 15)
                         }
@@ -966,7 +941,7 @@ struct Q6: View {
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.red, lineWidth: 2)
+                            .stroke(Color(.accent), lineWidth: 2)
                             .padding(.horizontal, 20)
                     )
                 } else {
@@ -978,13 +953,13 @@ struct Q6: View {
                                 ForEach(kilogramsRange, id: \.self) { kgs in
                                     Text("\(kgs)")
                                         .tag(kgs)
-                                        .foregroundColor(kgs == kg ? .white : .primary)
+                                        .foregroundColor(kgs == kg ? Color(.light) : .primary)
                                 }
                             }
                             .pickerStyle(.wheel)
                             .frame(maxWidth: .infinity)
                             Text(".")
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                             Spacer()
                         }
                         
@@ -992,7 +967,7 @@ struct Q6: View {
                             ForEach(gramsRange, id: \.self) { gs in
                                 Text("\(gs)")
                                     .tag(gs)
-                                    .foregroundColor(gs == g ? .white : .primary)
+                                    .foregroundColor(gs == g ? Color(.light) : .primary)
                             }
                         }
                         .pickerStyle(.wheel)
@@ -1001,20 +976,20 @@ struct Q6: View {
                         Picker("Units", selection: $isImperial) {
                             Text("lbs").tag(false)
                             Text("kg").tag(true)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.light))
                         }
                         .pickerStyle(.wheel)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.light))
                         
                         Spacer().frame(width: 20)
                     }
                     .padding()
                     .background(
                         ZStack {
-                            Color.white
+                            Color(.light)
                             
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.red.opacity(0.8))
+                                .fill(Color(.accent).opacity(0.9))
                                 .frame(height: 40)
                                 .padding(.horizontal, 15)
                         }
@@ -1023,7 +998,7 @@ struct Q6: View {
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.red, lineWidth: 2)
+                            .stroke(Color(.accent), lineWidth: 2)
                             .padding(.horizontal, 20)
                     )
                 }
@@ -1037,7 +1012,7 @@ struct Q6: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(.yellow)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
@@ -1055,7 +1030,7 @@ struct Q6: View {
                     userData.weight = weight
                 })
             }
-            .background(.ultraThickMaterial)
+            .background(Color(.light))
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -1065,7 +1040,7 @@ struct Q6: View {
                         }
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                     
                 }
@@ -1087,7 +1062,7 @@ struct Q6: View {
                         hideKeyboard()
                     }) {
                         Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
             }
@@ -1108,11 +1083,11 @@ struct Q7: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Next Steps..")
+                Text("Almost There...")
                     .fontWeight(.thin)
                     .padding(.bottom, 10)
                 
-                Text("What is your weight goal")
+                Text("What is your weight goal?")
                     .font(.largeTitle)
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
@@ -1126,13 +1101,13 @@ struct Q7: View {
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[0] ? .white : .red)
-                        .foregroundColor(selected[0] ? .red : .white)
+                        .background(selected[0] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[0] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[0] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[0] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[0].toggle()
@@ -1148,13 +1123,13 @@ struct Q7: View {
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[1] ? .white : .red)
-                        .foregroundColor(selected[1] ? .red : .white)
+                        .background(selected[1] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[1] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[1] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[1] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[1].toggle()
@@ -1170,13 +1145,13 @@ struct Q7: View {
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[2] ? .white : .red)
-                        .foregroundColor(selected[2] ? .red : .white)
+                        .background(selected[2] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[2] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[2] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[2] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[2].toggle()
@@ -1199,7 +1174,7 @@ struct Q7: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(selected[0] || selected[1] || selected[2] ? .yellow : .gray.opacity(0.2))
-                        .foregroundColor(selected[0] || selected[1] || selected[2] ? .white : .black)
+                        .foregroundColor(selected[0] || selected[1] || selected[2] ? Color(.light) :Color(.dark))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
@@ -1207,6 +1182,7 @@ struct Q7: View {
                 .disabled(allFalseValues)
                 
             }
+            .background(Color(.light))
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -1216,7 +1192,7 @@ struct Q7: View {
                         }
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                     
                 }
@@ -1238,12 +1214,11 @@ struct Q7: View {
                         hideKeyboard()
                     }) {
                         Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
             }
         }
-        .background(.ultraThickMaterial)
     }
 }
 
@@ -1251,6 +1226,7 @@ struct Q7: View {
 struct Q8: View {
     @ObservedObject var userData: UserData
     @State private var selected = [false, false, false, false, false]
+    @State private var showDesc = false
     @Environment(\.presentationMode) var presentationMode
 
     var allFalseValues: Bool {
@@ -1260,11 +1236,11 @@ struct Q8: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Next Steps..")
+                Text("Last One!")
                     .fontWeight(.thin)
                     .padding(.bottom, 10)
                 
-                Text("What is your activity level")
+                Text("What is your activity level?")
                     .font(.largeTitle)
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
@@ -1273,18 +1249,18 @@ struct Q8: View {
                 
                 VStack(spacing: 15) {
                     
-                    Text("Sedentary (little or no exercise)")
+                    Text("Sedentary")
                         .font(.headline)
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[0] ? .white : .red)
-                        .foregroundColor(selected[0] ? .red : .white)
+                        .background(selected[0] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[0] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[0] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[0] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[0].toggle()
@@ -1297,18 +1273,18 @@ struct Q8: View {
                             }
                         }
                     
-                    Text("Lightly active (light exercise/sports 1-3 days/week)")
+                    Text("Lightly Active")
                         .font(.headline)
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[1] ? .white : .red)
-                        .foregroundColor(selected[1] ? .red : .white)
+                        .background(selected[1] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[1] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[1] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[1] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[0] = false
@@ -1321,18 +1297,18 @@ struct Q8: View {
                             }
                         }
 
-                    Text("Moderately active (moderate exercise/sports 3-5 days/week)")
+                    Text("Moderately Active")
                         .font(.headline)
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[2] ? .white : .red)
-                        .foregroundColor(selected[2] ? .red : .white)
+                        .background(selected[2] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[2] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[2] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[2] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[0] = false
@@ -1345,18 +1321,18 @@ struct Q8: View {
                             }
                         }
                     
-                    Text("Very active (hard exercise/sports 6-7 days a week)")
+                    Text("Very Active")
                         .font(.headline)
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[3] ? .white : .red)
-                        .foregroundColor(selected[3] ? .red : .white)
+                        .background(selected[3] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[3] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[3] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[3] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[0] = false
@@ -1369,18 +1345,18 @@ struct Q8: View {
                             }
                         }
                     
-                    Text("Extra active (very hard exercise/sports & a physical job)")
+                    Text("Extra Active")
                         .font(.headline)
                         .fontWeight(.light)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selected[4] ? .white : .red)
-                        .foregroundColor(selected[4] ? .red : .white)
+                        .background(selected[4] ? Color(.light) : Color(.accent))
+                        .foregroundColor(selected[4] ? Color(.accent) : Color(.light))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(selected[4] ? .red : .white, lineWidth: 2)
+                                .stroke(selected[4] ? Color(.accent) : Color(.light), lineWidth: 2)
                         )
                         .onTapGesture {
                             selected[0] = false
@@ -1398,6 +1374,39 @@ struct Q8: View {
                 
                 Spacer()
                 
+                Button(action: {
+                    showDesc.toggle()
+                }) {
+                    Text("What do the activity levels mean?")
+                        .font(.caption)
+                        .underline(true)
+                        .foregroundColor(.gray)
+                        .padding()
+                }
+                .padding(.horizontal, 10)
+                .sheet(isPresented: $showDesc){
+                    ScrollView{
+                        Spacer()
+                            .frame(height: 40)
+                        
+                        VStack{
+                            Text("What do the activity levels mean?")
+                                .font(.title)
+                                .fontWeight(.medium)
+                                .multilineTextAlignment(.center)
+                            Text("little or no exercise")
+                            Text("light exercise/sports 1-3 days/week")
+                            Text("moderate exercise/sports 3-5 days/week")
+                            Text("hard exercise/sports 6-7 days a week")
+                            Text("very hard exercise/sports & a physical job")
+                        }
+                    }
+                    .background(Color(.light))
+                    .presentationDetents([.fraction(0.5)])
+                    .presentationDragIndicator(.visible)
+                    .presentationCornerRadius(25)
+                }
+                
                 NavigationLink(destination: SignupPrev(userData: userData)){
                     Text("Next")
                         .font(.headline)
@@ -1405,7 +1414,7 @@ struct Q8: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(selected[0] || selected[1] || selected[2] || selected[3] || selected[4] ? .yellow : .gray.opacity(0.2))
-                        .foregroundColor(selected[0] || selected[1] || selected[2] || selected[3] || selected[4] ? .white : .black)
+                        .foregroundColor(selected[0] || selected[1] || selected[2] || selected[3] || selected[4] ? Color(.light) :Color(.dark))
                         .cornerRadius(10)
                         .shadow(radius: 1)
                 }
@@ -1413,6 +1422,7 @@ struct Q8: View {
                 .disabled(allFalseValues)
                 
             }
+            .background(Color(.light))
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -1422,7 +1432,7 @@ struct Q8: View {
                         }
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                     
                 }
@@ -1444,245 +1454,14 @@ struct Q8: View {
                         hideKeyboard()
                     }) {
                         Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(.accent))
                     }
                 }
             }
         }
-        .background(.ultraThickMaterial)
+        .background(Color(.light))
     }
 }
-
-//MARK: Old UserForm
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
-    var sourceType: UIImagePickerController.SourceType = .photoLibrary
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        picker.sourceType = sourceType
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-    
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: ImagePicker
-        
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as? UIImage {
-                parent.image = uiImage
-            }
-            picker.dismiss(animated: true)
-        }
-    }
-}
-
-struct UserForm: View {
-    @State private var profileImage: UIImage?
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
-    @State private var birthdate = Date()
-    @State private var gender = 0
-    @State private var weight: String = ""
-    @State private var height_ft: String = ""
-    @State private var height_in: String = ""
-    @State private var preferredDiningHall = 0
-    @State private var preferredCuisine: String = ""
-    @State private var showImagePicker: Bool = false
-    @State private var isKg: Bool = false
-    @Environment(\.presentationMode) var presentationMode
-    
-    var body: some View {
-        NavigationStack {
-            GeometryReader { geo in
-                ZStack(alignment: .topLeading) {
-                    Rectangle()
-                        .fill(Color.red)
-                        .frame(width: geo.size.width, height: geo.size.height * 2 / 3)
-                        .offset(y: geo.size.height * 1 / 3 + geo.safeAreaInsets.top)
-                    
-                    VStack {
-                        headerSection
-                        formSection
-                            .padding(.horizontal, 20)
-                    }
-                    .padding(10)
-                }
-            }
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        AuthenticationModel().signOutAndDeleteUser { error in
-                            if let error = error {
-                                print("Error signing out and deleting user: \(error)")
-                                return
-                            }
-                            
-                            DispatchQueue.main.async {
-                                presentationMode.wrappedValue.dismiss()
-                            }
-                        }
-                    }) {
-                        Image(systemName: "chevron.backward")
-                            .foregroundColor(.red)
-                    }
-                    
-                }
-            
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        
-                    }) {
-                        Text("Save")
-                            .foregroundColor(.red)
-                    }
-                }
-                
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    
-                    Button(action: {
-                        hideKeyboard()
-                    }) {
-                        Image(systemName: "keyboard.chevron.compact.down")
-                            .foregroundColor(.red)
-                    }
-                }
-            }
-        }
-    }
-    
-    private var headerSection: some View {
-        VStack {
-            HStack {
-                VStack {
-                    HStack {
-                        Text("Let's Get Started!")
-                            .font(.title2)
-                            .fontWeight(.light)
-                            .foregroundColor(.black.opacity(0.75))
-                            .multilineTextAlignment(.leading)
-                        
-                        Spacer()
-                    }
-                    .padding(.horizontal, 20)
-                    
-                    HStack {
-                        Text("Create Profile")
-                            .font(.system(size: 45))
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.leading)
-                        
-                        Spacer()
-                    }
-                    .padding(.horizontal, 20)
-                }
-                
-                Button(action: {
-                    self.showImagePicker = true
-                }) {
-                    if let profileImage = profileImage {
-                        Image(uiImage: profileImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 100, height: 100)
-                            .clipShape(Circle())
-                    } else {
-                        Circle()
-                            .fill(Color.clear)
-                            .frame(width: 100, height: 100)
-                            .overlay(
-                                Image("Profile")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .opacity(0.8)
-                            )
-                    }
-                }
-                .padding()
-                .sheet(isPresented: $showImagePicker) {
-                    ImagePicker(image: self.$profileImage)
-                }
-            }
-        }
-    }
-    
-    private var formSection: some View {
-        VStack {
-            Form {
-                personalInformationSection
-                extraDataSection
-                preferencesSection
-            }
-            .tint(.red)
-            .background(Color.gray.opacity(0.07))
-            .scrollContentBackground(.hidden)
-        }
-        .background(Color.white)
-        .cornerRadius(5)
-        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
-    }
-    
-    private var personalInformationSection: some View {
-        Section(header: Text("Personal Information")) {
-            TextField("First Name", text: $firstName)
-            TextField("Last Name", text: $lastName)
-            DatePicker("Birthdate", selection: $birthdate, displayedComponents: .date)
-        }
-    }
-    
-    private var extraDataSection: some View {
-        Section(header: Text("Extra Data")) {
-            Picker("Gender", selection: $gender) {
-                Text("Male").tag(0)
-                Text("Female").tag(1)
-                Text("Other").tag(2)
-            }.pickerStyle(.segmented)
-            HStack {
-                TextField("Feet", text: $height_ft)
-                    .keyboardType(.decimalPad)
-                Divider()
-                TextField("Inches", text: $height_in)
-                    .keyboardType(.decimalPad)
-            }
-            
-            Toggle(isOn: $isKg) {
-                HStack {
-                    TextField("Weight", text: $weight)
-                        .keyboardType(.decimalPad)
-                    Text(isKg ? "kg" : "lbs")
-                }
-            }
-            
-
-        }
-    }
-    
-    private var preferencesSection: some View {
-        Section("Preferences") {
-            Picker("Dining Hall", selection: $preferredDiningHall) {
-                Text("Select").tag(0)
-                Text("251 North").tag(1)
-                Text("The Yahentimitsi").tag(2)
-                Text("South Diner").tag(3)
-            }
-            TextField("Cuisine", text: $preferredCuisine)
-        }
-    }
-}
-
 
 struct UserForm_Previews: PreviewProvider {
     static var previews: some View {

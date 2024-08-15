@@ -28,10 +28,30 @@ struct User: Identifiable, Codable {
     let cuisine_pref: String
 }
 
+class UserData: ObservableObject {
+    @Published var preferredDiningHall: String?
+    @Published var dietaryRestrictions: [String: Bool] = [
+            "Dairy": false, "Nuts": false, "Eggs": false, "Sesame": false,
+            "Soy": false, "Fish": false, "Gluten": false, "Shellfish": false,
+            "Vegetarian": false, "Vegan": false, "Halal": false, "None": false
+        ]
+    @Published var gender: String?
+    @Published var birthday: Date?
+    @Published var age: Int?
+    @Published var height: Double?
+    @Published var heightMeasurement: String?
+    @Published var weight: Double?
+    @Published var weightMeasurement: String?
+    @Published var goal: String?
+    @Published var activityLevel: Double?
+    // Add other properties as needed
+}
+
 enum Field: Hashable {
     case email
     case password
     case confirm_password
+    case name
 }
 
 @MainActor

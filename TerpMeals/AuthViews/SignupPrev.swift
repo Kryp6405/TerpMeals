@@ -41,7 +41,7 @@ struct SignupPrev: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.red.opacity(0.8))
+                            .background(Color(.accent).opacity(0.8))
                             .foregroundColor(.white)
                             .cornerRadius(10)
                             .shadow(radius: 1)
@@ -60,7 +60,7 @@ struct SignupPrev: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.black)
+                            .background(.black)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                             .shadow(radius: 1)
@@ -111,13 +111,13 @@ struct SignupPrev: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black)
+                            .background(.white)
+                            .foregroundColor(Color(.dark))
                             .cornerRadius(10)
                             .shadow(radius: 1)
                         }
                         
-                        NavigationLink(destination: Signup()){
+                        NavigationLink(destination: Signup2()){
                             HStack {
                                 Image(systemName: "envelope.fill")
                                     .resizable()
@@ -128,8 +128,8 @@ struct SignupPrev: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.white)
-                            .foregroundColor(.black)
+                            .background(.yellow)
+                            .foregroundColor(Color(.dark))
                             .cornerRadius(10)
                             .shadow(radius: 1)
                         }
@@ -137,6 +137,7 @@ struct SignupPrev: View {
                     }
                     .padding(.horizontal,30)
                 }
+                .background(Color(.light))
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -146,7 +147,7 @@ struct SignupPrev: View {
                             }
                         }) {
                             Image(systemName: "chevron.backward")
-                                .foregroundColor(.red)
+                                .foregroundColor(Color(.accent))
                         }
                         
                     }
@@ -158,7 +159,7 @@ struct SignupPrev: View {
                             hideKeyboard()
                         }) {
                             Image(systemName: "keyboard.chevron.compact.down")
-                                .foregroundColor(.red)
+                                .foregroundColor(Color(.accent))
                         }
                     }
                 }

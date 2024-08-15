@@ -30,11 +30,11 @@ struct LogoText: View {
     var body: some View {
         HStack(spacing: 0) {
             ForEach(Array("TerpMeals").indices, id: \.self) { index in
-                let letter = Array("TerpMeals")[index]
+                let letter = Array("terpmeals")[index]
                 Text(String(letter))
                     .font(.system(size:52))
                     .fontWeight(.bold)
-                    .foregroundColor(index < 4 ? .black : .red)
+                    .foregroundColor(index < 4 ? Color(.dark) : Color(.accent))
             }
         }
     }

@@ -38,7 +38,7 @@ struct Intro: View {
                     Text("welcome to")
                         .font(.title)
                         .fontWeight(.medium)
-                        .foregroundColor(.black.opacity(0.8))
+                        .foregroundColor(Color(.dark).opacity(0.9))
                     
                     LogoText()
                         .padding(.bottom, 5)
@@ -46,12 +46,12 @@ struct Intro: View {
                     Text("Your Campus Meal Companion")
                         .font(.title3)
                         .fontWeight(.medium)
-                        .foregroundColor(.black.opacity(0.7))
+                        .foregroundColor(Color(.dark).opacity(0.75))
                         .padding(.bottom, 20)
                     
                     Text("Discover and track your meals at the dining hall. Join our community and start your wellnesss journey today!")
                         .font(.system(size: 12, weight: .light, design: .default))
-                        .foregroundColor(.black.opacity(0.5))
+                        .foregroundColor(Color(.dark).opacity(0.6))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 40)
                         .padding(.bottom, 30)
@@ -63,7 +63,7 @@ struct Intro: View {
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .frame(width: 140, height: 50)
-                                .background(Color.red)
+                                .background(Color(.accent))
                                 .cornerRadius(5)
                         }
                         .padding(.horizontal, 10)
@@ -73,12 +73,12 @@ struct Intro: View {
                         }) {
                             Text("Log In")
                                 .font(.headline)
-                                .foregroundColor(.red)
+                                .foregroundColor(Color(.accent))
                                 .frame(width: 140, height: 50)
-                                .background(Color.white)
+                                .background(Color(.light))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 5)
-                                        .stroke(Color.red, lineWidth: 2)
+                                        .stroke(Color(.accent), lineWidth: 2)
                                 )
                         }
                         .padding(.horizontal, 10)
@@ -89,7 +89,7 @@ struct Intro: View {
                                 .presentationCornerRadius(25)
                         }
                         
-                        NavigationLink(destination: Login(), isActive: $navigateOnLogin) {
+                        NavigationLink(destination: Login2(), isActive: $navigateOnLogin) {
                             EmptyView()
                         }
                         
@@ -97,8 +97,8 @@ struct Intro: View {
                     
                     Spacer().frame(height: 40)
                 }
+                .background(Color(.light))
             }
-            .background(.ultraThickMaterial)
             .navigationBarBackButtonHidden(true)
             .disabled(loading)
         }
@@ -120,7 +120,7 @@ struct LoginSheet: View {
             Text("Log In")
                 .font(.title)
                 .fontWeight(.medium)
-                .foregroundColor(.black.opacity(0.8))
+                .foregroundColor(Color(.dark).opacity(0.8))
             
             Spacer()
             
@@ -138,7 +138,7 @@ struct LoginSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.red.opacity(0.8))
+                    .background(Color(.accent).opacity(0.8))
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .shadow(radius: 1)
@@ -157,7 +157,7 @@ struct LoginSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.black)
+                    .background(Color(.dark))
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .shadow(radius: 1)
@@ -206,8 +206,8 @@ struct LoginSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.white)
-                    .foregroundColor(.black)
+                    .background(.white)
+                    .foregroundColor(Color(.dark))
                     .cornerRadius(10)
                     .shadow(radius: 1)
                 }
@@ -226,8 +226,8 @@ struct LoginSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.yellow)
-                    .foregroundColor(.black)
+                    .background(.yellow)
+                    .foregroundColor(Color(.dark))
                     .cornerRadius(10)
                     .shadow(radius: 1)
                 }
@@ -237,7 +237,7 @@ struct LoginSheet: View {
             
             Spacer().frame(height: 30)
         }
-        .background(.ultraThickMaterial)
+        .background(Color(.light))
         .navigationBarBackButtonHidden(true)
     }
 }
