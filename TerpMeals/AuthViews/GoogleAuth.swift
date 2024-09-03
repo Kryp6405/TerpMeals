@@ -48,25 +48,6 @@ final class LoginModel: ObservableObject{
     }
 }
 
-//final class AuthenticationManager {
-//    
-//    static let shared = AuthenticationManager()
-//    private init() { }
-//    
-//    func getAuthenticatedUser() throws -> AuthDataResultModel {
-//        guard let user = Auth.auth().currentUser else {
-//            throw URLError(.badServerResponse)
-//        }
-//        
-//        return AuthDataResultModel(user: user)
-//    }
-//    
-//    func signOut() throws {
-//        try Auth.auth().signOut()
-//    }
-//    
-//}
-
 final class AuthenticationManager {
     
     static let shared = AuthenticationManager()

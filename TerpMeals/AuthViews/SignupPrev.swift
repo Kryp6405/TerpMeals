@@ -117,7 +117,7 @@ struct SignupPrev: View {
                             .shadow(radius: 1)
                         }
                         
-                        NavigationLink(destination: Signup2()){
+                        NavigationLink(destination: Signup2(userData: userData)){
                             HStack {
                                 Image(systemName: "envelope.fill")
                                     .resizable()

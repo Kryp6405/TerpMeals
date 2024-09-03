@@ -30,7 +30,6 @@
 		809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809F67792C2282A9004F11C5 /* SplashScreen.swift */; };
 		80A04B512C2366540049F1A3 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A04B502C2366540049F1A3 /* SignIn.swift */; };
 		80A04B532C2366680049F1A3 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A04B522C2366680049F1A3 /* SignUp.swift */; };
-		EC42F4D02C333DFD0020A4E1 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC42F4CF2C333DFD0020A4E1 /* AuthenticationManager.swift */; };
 		EC42F4D52C3342200020A4E1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC42F4D42C3342200020A4E1 /* Utilities.swift */; };
 		ECA971BE2C3236D8000AD049 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ECA971BD2C3236D8000AD049 /* FirebaseAuth */; };
 		ECA971C02C3236DF000AD049 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = ECA971BF2C3236DF000AD049 /* GoogleSignIn */; };
@@ -79,7 +78,6 @@
 		80A04B502C2366540049F1A3 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		80A04B522C2366680049F1A3 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		80A04B5E2C2372700049F1A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		EC42F4CF2C333DFD0020A4E1 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		EC42F4D42C3342200020A4E1 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,7 +163,6 @@
 				80A04B5E2C2372700049F1A3 /* Info.plist */,
 				0C9A8A562C35B30100BAED42 /* GoogleService-Info.plist */,
 				EC42F4D32C3341EA0020A4E1 /* Utilities */,
-				EC42F4D12C3341C40020A4E1 /* Authentication */,
 				809F67512C22808F004F11C5 /* ContentView.swift */,
 				0C4080E72C3604A300D768D9 /* OldAuthViews */,
 				809F674F2C22808F004F11C5 /* TerpMealsApp.swift */,
@@ -201,14 +198,6 @@
 				809F676C2C228090004F11C5 /* TerpMealsUITestsLaunchTests.swift */,
 			);
 			path = TerpMealsUITests;
-			sourceTree = "<group>";
-		};
-		EC42F4D12C3341C40020A4E1 /* Authentication */ = {
-			isa = PBXGroup;
-			children = (
-				EC42F4CF2C333DFD0020A4E1 /* AuthenticationManager.swift */,
-			);
-			path = Authentication;
 			sourceTree = "<group>";
 		};
 		EC42F4D32C3341EA0020A4E1 /* Utilities */ = {
@@ -373,7 +362,6 @@
 				808D24A92C290DAD00E44B2E /* AuthModels.swift in Sources */,
 				0C4080EA2C370F7E00D768D9 /* Login.swift in Sources */,
 				0C256A2C2C42F1690002CC73 /* SignupPrev.swift in Sources */,
-				EC42F4D02C333DFD0020A4E1 /* AuthenticationManager.swift in Sources */,
 				809F677A2C2282A9004F11C5 /* SplashScreen.swift in Sources */,
 				809D33082C27FAC000E37C34 /* Generic.swift in Sources */,
 				0C4080EE2C370FCB00D768D9 /* Signup.swift in Sources */,

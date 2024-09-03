@@ -44,7 +44,6 @@ class UserData: ObservableObject {
     @Published var weightMeasurement: String?
     @Published var goal: String?
     @Published var activityLevel: Double?
-    // Add other properties as needed
 }
 
 enum Field: Hashable {
@@ -80,10 +79,6 @@ class AuthenticationModel: ObservableObject {
         } catch {
             print("AUTH: Failed to create new user with error \"\(error.localizedDescription)\"")
         }
-    }
-    
-    func createUser(user: User) async throws{
-        let encodedUser = try Firestore.Encoder().encode(user)
     }
 
     func signOutAndDeleteUser(completion: @escaping (Error?) -> Void) {
